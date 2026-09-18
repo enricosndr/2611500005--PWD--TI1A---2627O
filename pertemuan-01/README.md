@@ -1,5 +1,7 @@
-# Pemrograman Web Dasar
-Nama: Enrico Sandra
-NIM: 2611500005
-Kelompok: TI1A
-Tahun Ajaran: 2026/2027 Gasal
+# Bukti Belajar P1
+
+1. Konsep Dasar Pemrograman Web
+2. Arsitektur Klien-Peladen
+3. HTTP Request dan Response
+4. HTML, CSS, JavaScript, PHP, MySQL
+5. Hubungan Antarteknologi
