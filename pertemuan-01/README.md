@@ -1,7 +1,7 @@
-# Bukti Belajar P1
+# Pertemuan 01 - Bukti Belajar P1
 
-1. Konsep Dasar Pemrograman Web
-2. Arsitektur Klien-Peladen
-3. HTTP Request dan Response
-4. HTML, CSS, JavaScript, PHP, MySQL
-5. Hubungan Antarteknologi
+Dokumentasi capaian pembelajaran P1.
+
+Pada pertemuan ini saya memahami konsep dasar pemrograman web, arsitektur klien-peladen, cara kerja HTTP request dan response, serta fungsi HTML, CSS, JavaScript, PHP, dan MySQL.
+
+HTML, CSS, dan JavaScript digunakan di sisi klien untuk tampilan dan interaksi. PHP digunakan di sisi server untuk memproses data, sedangkan MySQL digunakan untuk menyimpan data. Semua teknologi tersebut saling berhubungan dalam sebuah aplikasi web.
