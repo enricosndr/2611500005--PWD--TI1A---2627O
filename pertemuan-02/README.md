@@ -11,8 +11,10 @@ Pada P2 saya membangun halaman profil menggunakan struktur HTML5 yang valid,
 elemen semantik, teks, daftar, tautan, dan gambar.
 
 ## Validasi HTML
-Berkas yang sudah di validasi menggunakan : https://validator.w3.org/
-" Document checking completed. No errors or warnings to show. "
+- Berkas yang divalidasi: `index.html`
+- Galat yang ditemukan: [ - ]
+- Perbaikan yang dilakukan: [ - ]
+- Hasil validasi akhir: [✅ Document checking completed. No errors or warnings to show. ]
 
 ## GitHub Pages
 URL: https://enricosndr.github.io/2611500005--PWD--TI1A---2627O/pertemuan-02
