@@ -27,4 +27,8 @@
 - Hasil pengujian ulang: seluruh elemen formulir, pengiriman data GET/POST, dan penataan CSS dasar lulus pengujian tanpa kendala.
 
 ## GitHub Pages
+<<<<<<< HEAD
 URL: https://enricosndr.github.io/2611500005--PWD--TI1A---2627O/pertemuan-03/
+=======
+URL: https://enricosndr.github.io/2611500005--PWD--TI1A---2627O/pertemuan-03/
+>>>>>>> f4138844c0bf3eb99f9e1291a055a8888947de7b
