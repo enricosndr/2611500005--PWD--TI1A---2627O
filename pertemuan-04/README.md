@@ -14,12 +14,10 @@
 
 - Desktop (Windows): halaman di buka dengan lebar layar yang lebih dari 768px, navigasi otomatis tampil horizontal, home dan tentang tersusun berdampingan, sedangkan kontak membentang selebar halaman.
 
-- Galat dan perbaikan: tidak ditemukan galat dan otomatis tidak melakukan perbaikan.
-
 - Validasi CSS: W3C CSS Validator results for style.css (CSS level 3 + SVG)
 Congratulations! No Error Found.
 This document validates as CSS level 3 + SVG !
 
 ## Repositori
 
-URL GitHub: [tempel URL repositori]
+URL: https://enricosndr.github.io/2611500005--PWD--TI1A---2627O/pertemuan-04/
