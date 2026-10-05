@@ -5,10 +5,9 @@
 - Menyalin `index.html` dan `img/foto-profil.jpg` ke `pertemuan-03/`.
 
 ## Implementasi Formulir
-- Elemen form yang digunakan: <form>, <label>, <input>, <select>, <option>, <textarea>, <button>.
+- Elemen form yang digunakan: `<form>`, `<label>`, `<input>`, `<select>`, `<option>`, `<textarea>`, `<button>`.
 - Tipe input yang digunakan: text, email, number, date, radio, checkbox.
-- Atribut validasi yang digunakan: required, minlength="3", maxlength="50", min="1", max="14", maxlength="300"
-
+- Atribut validasi yang digunakan: `required`, `minlength="3"`, `maxlength="50"`, `min="1"`, `max="14"`, `maxlength="300"`.
 ## Pengujian GET dan POST
 - Hasil pengujian GET: data formulir berhasil dikirim dan ditambahkan langsung pada URL sebagai query string dengan format name=value.
 - Contoh URL encoding yang ditemukan: Karakter spasi diubah menjadi + (Enrico+Sandra) dan karakter @ diubah menjadi %40 (2611500005%40mahasiswa.atmaluhur.ac.id)
@@ -27,8 +26,4 @@
 - Hasil pengujian ulang: seluruh elemen formulir, pengiriman data GET/POST, dan penataan CSS dasar lulus pengujian tanpa kendala.
 
 ## GitHub Pages
-<<<<<<< HEAD
 URL: https://enricosndr.github.io/2611500005--PWD--TI1A---2627O/pertemuan-03/
-=======
-URL: https://enricosndr.github.io/2611500005--PWD--TI1A---2627O/pertemuan-03/
->>>>>>> f4138844c0bf3eb99f9e1291a055a8888947de7b
