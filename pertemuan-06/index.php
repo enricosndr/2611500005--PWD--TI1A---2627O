@@ -1,7 +1,11 @@
-   <?php
-echo "PHP berhasil dijalankan.";
+<?php
+// Komentar satu baris.
+print "Keluaran menggunakan print.";
+/*
+Komentar beberapa baris.
+Komentar ini tidak ditampilkan pada halaman.
+*/
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
