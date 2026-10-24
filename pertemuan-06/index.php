@@ -89,6 +89,7 @@ switch ($programStudi) {
             <article>
                 <h3>Profil Singkat</h3>
                 <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p>
+                <p>Pemeriksaan rentang semester: <?php echo $statusSemester; ?></p>
                 <p>Semester: <?php echo $semester . " (" . $keteranganSemester . ")"; ?></p>
                 <p>IPK: <?php echo number_format($ipk, 2, ",", "."); ?></p>
                 <p>Program Studi: <?php echo $namaProdi . " (" . $programStudi . ")"; ?></p>
