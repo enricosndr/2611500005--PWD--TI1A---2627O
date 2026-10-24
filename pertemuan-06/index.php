@@ -94,6 +94,7 @@ switch ($programStudi) {
                 <p>Program Studi: <?php echo $namaProdi . " (" . $programStudi . ")"; ?></p>
                 <p>Status mahasiswa: <?php echo $statusAktif ? "Aktif" : "Tidak aktif"; ?></p>
                 <p>Fokus program studi: <?php echo $fokusProgramStudi; ?></p>
+                <p>Catatan tambahan: <?php echo $catatanTambahan === null ? "Belum ada" : $catatanTambahan; ?></p>
                 <h3>Target Belajar (Perulangan for)</h3>
                 <ol>
                     <?php
