@@ -27,6 +27,7 @@ $keteranganSemester = "Semester menengah";
 } else {
 $keteranganSemester = "Semester akhir";
 }
+$namaProdi = ($programStudi == "SI") ? "Sistem Informasi" : (($programStudi == "TI") ? "Teknik Informatika" : "Lainnya");
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -77,8 +78,7 @@ $keteranganSemester = "Semester akhir";
                 <h3>Profil Singkat</h3>
                 <p>Sisa semester hingga batas: <?php echo $sisaSemester; ?></p>
                 <p>Semester: <?php echo $semester . " (" . $keteranganSemester . ")"; ?></p>
-                <p>Saya mahasiswa Program Studi Teknik Informatika.</p>
-
+                <p>Saya mahasiswa Program Studi <?php echo $namaProdi; ?>.</p>
                 <h3>Target Belajar</h3>
                 <ol>
                     <li>Memahami struktur HTML5.</li>
