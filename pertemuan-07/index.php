@@ -1,4 +1,5 @@
 <?php
+session_start();
 function normalizeFormText($value): string
 {
     return is_scalar($value) ? trim((string) $value) : '';

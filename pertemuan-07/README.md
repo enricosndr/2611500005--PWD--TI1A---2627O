@@ -176,3 +176,13 @@ Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan b
 - GET tidak menampilkan bagian data yang diterima.
 - POST menampilkan data formulir dan pilihan minat.
 - Teks yang berisi tag HTML ditampilkan sebagai teks, dan baris baru pada pesan dipertahankan.
+
+## G1. Menyiapkan Session
+
+- Menambahkan `session_start()` tepat setelah tag pembuka PHP di awal `index.php`, sebelum kode PHP lain dan sebelum keluaran HTML.
+- Tahap ini hanya menyiapkan session; penyimpanan data formulir dan alur redirect dikerjakan pada tahap berikutnya.
+
+### Hasil Pemeriksaan Tahap G1
+
+- `index.php` lolos `php -l`.
+- GET memulai session tanpa menghasilkan peringatan dan memberikan cookie session.
