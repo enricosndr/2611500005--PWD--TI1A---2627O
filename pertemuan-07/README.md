@@ -90,3 +90,7 @@ Tahun ajaran: 2026/2027 Gasal
 - `index.php` lolos `php -l` dan `script.js` lolos `node --check`.
 - Pemeriksaan PHP dengan nilai POST contoh memastikan semua field scalar terbaca dan `minat` berisi `HTML` serta `CSS`.
 - Pemeriksaan kode memastikan form utama memakai `minat[]`, form GET tetap memakai `minat`, dan selector JavaScript mencakup keduanya.
+
+## F1. Alasan Validasi Sisi Peladen
+
+Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan benar, tetapi dapat dilewati jika JavaScript dinonaktifkan atau permintaan dikirim langsung. Karena itu, PHP tetap perlu memeriksa data POST di sisi peladen. Validasi server untuk kelengkapan, format, tipe, dan nilai pilihan dimulai pada tahap F2; formulir demonstrasi GET tidak diubah.
