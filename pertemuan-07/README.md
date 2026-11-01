@@ -186,3 +186,11 @@ Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan b
 
 - `index.php` lolos `php -l`.
 - GET memulai session tanpa menghasilkan peringatan dan memberikan cookie session.
+
+## G2. Menerapkan Session dan Pola PRG
+
+- Menyimpan pesan validasi dan data formulir ke `$_SESSION` setelah POST.
+- Mengalihkan POST kembali ke `index.php` dan menghentikan proses dengan `exit`.
+- Mengambil kembali pesan dan data formulir dari session pada permintaan GET.
+- Menghapus pesan validasi dari session setelah ditampilkan, sementara data formulir tetap tersedia.
+- Menampilkan bagian data yang diterima berdasarkan ketersediaan nama di session agar tetap tampil setelah redirect.
