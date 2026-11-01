@@ -17,3 +17,18 @@ Tahun ajaran: 2026/2027 Gasal
 - Halaman P7 dibuka melalui server PHP lokal sementara: HTTP 200.
 - Formulir baseline terdeteksi memakai GET.
 - Belum ada pemrosesan POST pada tahap baseline.
+
+## C. Pengiriman Formulir Menggunakan GET
+
+- Membaca parameter `nama` melalui `$_GET` pada halaman utama dan menampilkan nilainya setelah `htmlspecialchars()`.
+- Formulir masih menggunakan `method="get"` dengan `action="index.php"` untuk tahap demonstrasi ini.
+- Setelah validasi sisi klien berhasil, JavaScript memanggil `contactForm.submit()` agar formulir dikirim dan parameter tampak di URL.
+
+### Hasil Pemeriksaan Tahap C
+
+- `index.php` lolos `php -l` dan `script.js` lolos `node --check`.
+- Uji HTTP lokal `?nama=Andi` menampilkan `Nama yang diterima: Andi` dengan status HTTP 200.
+- Nilai uji berisi tag `<script>` ditampilkan sebagai teks ter-escape.
+- Tanpa parameter `nama`, halaman tetap HTTP 200 tanpa keluaran nama atau peringatan PHP.
+- Parameter `nama[]` juga tidak menimbulkan peringatan.
+- Kode formulir GET dan pemanggilan `contactForm.submit()` sudah diperiksa. Apache Laragon tidak aktif saat pengujian; permintaan GET diuji melalui server PHP sementara.
