@@ -120,3 +120,17 @@ Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan b
 - Semester 1 dan 14 diterima; 0, 15, dan 4.5 ditolak.
 - Email tidak valid ditolak.
 - Nilai kosong tetap menghasilkan pesan kelengkapan tanpa pesan format tambahan.
+
+## F4. Validasi Nilai Pilihan
+
+- Membatasi jenis pesan pada `pertanyaan` atau `saran`.
+- Memeriksa pilihan program studi dengan perbandingan ketat. Daftar yang diizinkan mengikuti pilihan yang ada pada form: `SI`, `BD`, dan `TI`.
+- Memeriksa bahwa `minat` berbentuk array dan setiap topik hanya `HTML` atau `CSS`.
+
+### Hasil Pemeriksaan Tahap F4
+
+- `index.php` lolos `php -l`.
+- Nilai pilihan valid diterima, termasuk program studi BD yang tersedia pada form.
+- Jenis pesan dan program yang tidak diizinkan ditolak.
+- Topik yang tidak dikenal dan nilai minat yang bukan array ditolak.
+- Array minat kosong memicu pesan kelengkapan dari F2.

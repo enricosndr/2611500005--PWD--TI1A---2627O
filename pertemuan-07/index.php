@@ -64,6 +64,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($email !== '' && !is_string($email)) {
         $pesanKesalahan .= 'Format email tidak valid. ';
     }
+
+    if (!in_array($jenisPesan, ['pertanyaan', 'saran'], true)) {
+        $pesanKesalahan .= 'Jenis pesan tidak valid. ';
+    }
+
+    if (!in_array($prodi, ['SI', 'BD', 'TI'], true)) {
+        $pesanKesalahan .= 'Program studi tidak valid. ';
+    }
+
+    $minatDiizinkan = ['HTML', 'CSS'];
+    if (!is_array($minat)) {
+        $pesanKesalahan .= 'Format pilihan topik tidak valid. ';
+    } else {
+        foreach ($minat as $topik) {
+            if (!in_array($topik, $minatDiizinkan, true)) {
+                $pesanKesalahan .= 'Pilihan topik tidak valid. ';
+                break;
+            }
+        }
+    }
 }
 
 // P6: PHP dasar dan pemrograman sisi peladen
