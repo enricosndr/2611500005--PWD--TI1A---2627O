@@ -148,3 +148,17 @@ Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan b
 - Input dengan spasi di awal/akhir dinormalisasi dan lolos pemeriksaan bila nilainya valid.
 - Nilai email berbentuk array ditangani tanpa peringatan dan ditandai wajib diisi.
 - Permintaan GET melewati validasi POST.
+
+## F6.1. Menampilkan Pesan Kesalahan Validasi
+
+- Menghapus keluaran nama POST yang sebelumnya berada sebelum doctype.
+- Menampilkan `$pesanKesalahan` setelah judul Kontak hanya jika ada kesalahan, menggunakan `htmlspecialchars()`.
+- Bagian data yang diterima belum ditambahkan; itu tahap F6.2.
+
+### Hasil Pemeriksaan Tahap F6.1
+
+- `index.php` lolos `php -l`.
+- POST kosong menampilkan panel kesalahan dan seluruh pesan kelengkapan/pilihan yang diharapkan.
+- POST lengkap tanpa kesalahan tidak menampilkan panel kesalahan.
+- Email tidak valid menampilkan pesan kesalahan format.
+- Respons HTML dimulai dengan doctype, tanpa keluaran PHP sebelum HTML.

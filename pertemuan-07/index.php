@@ -14,9 +14,7 @@ $prodi = normalizeFormText($_POST['prodi'] ?? '');
 $pesan = normalizeFormText($_POST['pesan'] ?? '');
 $minat = $_POST['minat'] ?? [];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nama'])) {
-    echo "Nama yang diterima: " . htmlspecialchars($nama, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-}
+
 
 $pesanKesalahan = '';
 
@@ -231,6 +229,11 @@ switch ($programStudi) {
 
         <section id="contact">
             <h2>Kontak</h2>
+            <?php if ($pesanKesalahan !== ''): ?>
+                <p class="form-feedback-error">
+                    <?= htmlspecialchars($pesanKesalahan, ENT_QUOTES, 'UTF-8') ?>
+                </p>
+            <?php endif; ?>
             <p>
                 Kunjungi
                 <a target="_blank" href="https://github.com/<?= PROFIL_GITHUB ?>">profil GitHub saya</a>
