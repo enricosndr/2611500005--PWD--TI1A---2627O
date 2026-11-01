@@ -1,8 +1,8 @@
 <?php
-// P7: penggunaan GET
-if (isset($_GET['nama']) && is_string($_GET['nama'])) {
-    $namaGet = trim($_GET['nama']);
-    echo "Nama yang diterima: " . htmlspecialchars($namaGet, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+// P7: penggunaan POST
+if (isset($_POST['nama']) && is_string($_POST['nama'])) {
+    $nama = trim($_POST['nama']);
+    echo "Nama yang diterima: " . htmlspecialchars($nama, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
 // P6: PHP dasar dan pemrograman sisi peladen

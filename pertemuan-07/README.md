@@ -63,3 +63,17 @@ Tahun ajaran: 2026/2027 Gasal
 - `index.php` lolos `php -l`.
 - Pemeriksaan atribut memastikan form utama POST dan tujuan pengiriman tetap `index.php`.
 - Pemeriksaan `indexGet.php` memastikan demonstrasi GET tetap terpisah.
+
+## E3. Menerima Nama dengan POST
+
+- Mengganti handler utama agar membaca `nama` dari `$_POST` dan menampilkan teksnya setelah `htmlspecialchars()`.
+- Handler GET tetap berada pada `indexGet.php`; halaman utama hanya membaca nama dari POST.
+- Tahap ini baru membaca input `nama`. Input formulir lainnya ditangani pada E4.
+
+### Hasil Pemeriksaan Tahap E3
+
+- `index.php` lolos `php -l`.
+- POST ke halaman utama menampilkan `Nama yang diterima: Andi` dengan HTTP 200.
+- Nilai nama berisi tag `<script>` ditampilkan sebagai teks ter-escape.
+- Query `?nama=Andi` tidak diproses oleh handler POST, sedangkan `indexGet.php?nama=Budi` masih diproses oleh demonstrasi GET.
+- Membuka halaman tanpa nilai POST tetap HTTP 200 tanpa peringatan PHP.
