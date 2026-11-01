@@ -39,3 +39,15 @@ Tahun ajaran: 2026/2027 Gasal
 - POST mengirim nilai melalui request body dan lebih sesuai untuk formulir Kontak yang akan diproses oleh PHP.
 - POST tidak otomatis mengenkripsi atau mengamankan data. Perlindungan saat transmisi memerlukan HTTPS.
 - Keputusan tahap D: formulir utama P7 akan menggunakan POST. Implementasi perubahan method dan penerimaan `$_POST` dilakukan pada tahap E; pada checkpoint D, formulir masih GET.
+
+## E1. Artefak Demonstrasi GET
+
+- Menyalin halaman tahap C menjadi `indexGet.php` agar contoh GET tetap tersedia saat halaman utama nanti beralih ke POST.
+- Formulir di salinan ini tetap menggunakan `method="get"` dan mengarah ke `action="indexGet.php"`.
+- Kode pembacaan parameter `$_GET['nama']` tetap dipertahankan.
+
+### Hasil Pemeriksaan Tahap E1
+
+- `indexGet.php` lolos `php -l`.
+- `indexGet.php?nama=Andi` memberi HTTP 200 dan menampilkan nama yang diterima.
+- Respons halaman memastikan form GET mengarah kembali ke `indexGet.php`.
