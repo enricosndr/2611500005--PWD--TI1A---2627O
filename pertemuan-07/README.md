@@ -194,3 +194,12 @@ Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan b
 - Mengambil kembali pesan dan data formulir dari session pada permintaan GET.
 - Menghapus pesan validasi dari session setelah ditampilkan, sementara data formulir tetap tersedia.
 - Menampilkan bagian data yang diterima berdasarkan ketersediaan nama di session agar tetap tampil setelah redirect.
+
+## G3. Pengujian Session dan PRG
+
+### Hasil Pemeriksaan Tahap G3
+
+- `index.php` lolos `php -l`.
+- POST valid dengan semester 3 dan topik HTML dialihkan ke `index.php`; nama, pilihan minat, dan data formulir tampil setelah redirect.
+- GET ulang dengan session yang sama tetap menampilkan data tanpa mengirim ulang POST.
+- POST tidak valid menampilkan pesan validasi setelah redirect; pada GET berikutnya pesan tersebut sudah dihapus.
