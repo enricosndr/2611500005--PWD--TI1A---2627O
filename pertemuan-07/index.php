@@ -1,17 +1,22 @@
 <?php
-// P7: penggunaan POST
-if (isset($_POST['nama']) && is_string($_POST['nama'])) {
-    $nama = trim($_POST['nama']);
-    echo "Nama yang diterima: " . htmlspecialchars($nama, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+function normalizeFormText($value): string
+{
+    return is_scalar($value) ? trim((string) $value) : '';
 }
 
-$email = $_POST['email'] ?? '';
-$semesterForm = $_POST['semester'] ?? '';
-$tanggal = $_POST['tanggal'] ?? '';
-$jenisPesan = $_POST['jenis_pesan'] ?? '';
-$prodi = $_POST['prodi'] ?? '';
-$pesan = $_POST['pesan'] ?? '';
+// P7: menerima input POST dan menormalisasi teks
+$nama = normalizeFormText($_POST['nama'] ?? '');
+$email = normalizeFormText($_POST['email'] ?? '');
+$semesterForm = normalizeFormText($_POST['semester'] ?? '');
+$tanggal = normalizeFormText($_POST['tanggal'] ?? '');
+$jenisPesan = normalizeFormText($_POST['jenis_pesan'] ?? '');
+$prodi = normalizeFormText($_POST['prodi'] ?? '');
+$pesan = normalizeFormText($_POST['pesan'] ?? '');
 $minat = $_POST['minat'] ?? [];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nama'])) {
+    echo "Nama yang diterima: " . htmlspecialchars($nama, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
 
 $pesanKesalahan = '';
 

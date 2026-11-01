@@ -134,3 +134,17 @@ Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan b
 - Jenis pesan dan program yang tidak diizinkan ditolak.
 - Topik yang tidak dikenal dan nilai minat yang bukan array ditolak.
 - Array minat kosong memicu pesan kelengkapan dari F2.
+
+## F5. Normalisasi Data Masukan
+
+- Menormalkan input teks dengan fungsi `normalizeFormText()` sebelum pemeriksaan F2–F4.
+- `trim()` membuang spasi di awal/akhir; nilai scalar dikonversi ke string terlebih dahulu.
+- Nilai non-scalar diperlakukan sebagai kosong dengan aman. Checkbox `minat` tetap dipertahankan sebagai array.
+- Normalisasi ini tidak menggantikan validasi; pengamanan keluaran HTML dibahas pada F6.
+
+### Hasil Pemeriksaan Tahap F5
+
+- `index.php` lolos `php -l`.
+- Input dengan spasi di awal/akhir dinormalisasi dan lolos pemeriksaan bila nilainya valid.
+- Nilai email berbentuk array ditangani tanpa peringatan dan ditandai wajib diisi.
+- Permintaan GET melewati validasi POST.
