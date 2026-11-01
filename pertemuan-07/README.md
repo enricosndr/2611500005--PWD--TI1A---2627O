@@ -51,3 +51,15 @@ Tahun ajaran: 2026/2027 Gasal
 - `indexGet.php` lolos `php -l`.
 - `indexGet.php?nama=Andi` memberi HTTP 200 dan menampilkan nama yang diterima.
 - Respons halaman memastikan form GET mengarah kembali ke `indexGet.php`.
+
+## E2. Formulir Utama Menggunakan POST
+
+- Mengubah form Kontak pada `index.php` menjadi `method="post"` dengan tujuan tetap `action="index.php"`.
+- Artefak pembanding `indexGet.php` tetap memakai GET.
+- Penerimaan dan pemrosesan nilai `$_POST` dilakukan pada tahap E3, jadi belum diuji dengan pengiriman POST pada checkpoint ini.
+
+### Hasil Pemeriksaan Tahap E2
+
+- `index.php` lolos `php -l`.
+- Pemeriksaan atribut memastikan form utama POST dan tujuan pengiriman tetap `index.php`.
+- Pemeriksaan `indexGet.php` memastikan demonstrasi GET tetap terpisah.
