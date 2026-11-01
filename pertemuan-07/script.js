@@ -63,7 +63,7 @@ contactForm.addEventListener("submit", (event) => {
   }
 
   const topikDipilih = document.querySelectorAll(
-    'input[name="minat"]:checked',
+    'input[name="minat"]:checked, input[name="minat[]"]:checked',
   );
 
   if (topikDipilih.length === 0) {

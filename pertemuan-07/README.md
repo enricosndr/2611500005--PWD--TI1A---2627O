@@ -77,3 +77,16 @@ Tahun ajaran: 2026/2027 Gasal
 - Nilai nama berisi tag `<script>` ditampilkan sebagai teks ter-escape.
 - Query `?nama=Andi` tidak diproses oleh handler POST, sedangkan `indexGet.php?nama=Budi` masih diproses oleh demonstrasi GET.
 - Membuka halaman tanpa nilai POST tetap HTTP 200 tanpa peringatan PHP.
+
+## E4. Membaca Berbagai Jenis Input POST
+
+- Membaca email, semester, tanggal, jenis pesan, program studi, pesan, dan pilihan minat dari `$_POST` menggunakan `??` untuk nilai awal.
+- Mengubah kedua checkbox pada formulir utama menjadi `name="minat[]"`, sehingga beberapa pilihan diterima sebagai array PHP.
+- Mempertahankan checkbox demonstrasi GET dengan `name="minat"`.
+- Menyesuaikan selector JavaScript agar memeriksa pilihan pada kedua nama checkbox tersebut.
+
+### Hasil Pemeriksaan Tahap E4
+
+- `index.php` lolos `php -l` dan `script.js` lolos `node --check`.
+- Pemeriksaan PHP dengan nilai POST contoh memastikan semua field scalar terbaca dan `minat` berisi `HTML` serta `CSS`.
+- Pemeriksaan kode memastikan form utama memakai `minat[]`, form GET tetap memakai `minat`, dan selector JavaScript mencakup keduanya.
