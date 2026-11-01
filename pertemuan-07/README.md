@@ -1,205 +1,30 @@
-# P7 - Baseline dari Pertemuan 6
+# P7 - Pemrosesan Formulir PHP
 
-Nama: Enrico Sandra
-NIM: 2611500005
-Kelompok: TI1A
-Tahun ajaran: 2026/2027 Gasal
+- Nama: Enrico Sandra
+- NIM: 2611500005
+- Kelompok: TI1A
+- Tahun ajaran: 2026/2027 Gasal
 
-## Persiapan P7
+## Menjalankan
 
-- Menyalin `index.php` dan `script.js` dari `pertemuan-06` sebagai baseline.
-- Mempertahankan `style.css` dan aset gambar yang sudah disalin ke folder `pertemuan-07`.
-- Formulir baseline masih memakai metode GET. Pemrosesan GET akan dibuat pada tahap berikutnya.
+- Laragon tidak digunakan karena masa uji coba gratisnya sudah berakhir.
+- Dari folder `pertemuan-07`, jalankan server bawaan PHP: `php -S 127.0.0.1:8000`.
+- Buka `http://127.0.0.1:8000/`.
+- Contoh GET: `http://127.0.0.1:8000/indexGet.php?nama=Andi`.
 
-## Pemeriksaan Baseline
+## Perubahan
 
-- PHP 8.3.33: `index.php` lolos pemeriksaan sintaks.
-- Halaman P7 dibuka melalui server PHP lokal sementara: HTTP 200.
-- Formulir baseline terdeteksi memakai GET.
-- Belum ada pemrosesan POST pada tahap baseline.
+- **Baseline:** salinan artefak P6 dibuat di `pertemuan-07/`.
+- **C-D:** menguji GET, lalu menetapkan POST untuk formulir utama.
+- **E1-E4:** membuat `indexGet.php`; halaman utama membaca input POST, termasuk checkbox `minat[]`.
+- **F1-F6:** menambah validasi server, normalisasi input, dan escaping keluaran HTML.
+- **G1-G3:** menambah session dan PRG; data tetap tampil setelah redirect, pesan kesalahan hanya tampil sekali.
 
-## C. Pengiriman Formulir Menggunakan GET
+## Pengujian Akhir
 
-- Membaca parameter `nama` melalui `$_GET` pada halaman utama dan menampilkan nilainya setelah `htmlspecialchars()`.
-- Formulir masih menggunakan `method="get"` dengan `action="index.php"` untuk tahap demonstrasi ini.
-- Setelah validasi sisi klien berhasil, JavaScript memanggil `contactForm.submit()` agar formulir dikirim dan parameter tampak di URL.
-
-### Hasil Pemeriksaan Tahap C
-
-- `index.php` lolos `php -l` dan `script.js` lolos `node --check`.
-- Uji HTTP lokal `?nama=Andi` menampilkan `Nama yang diterima: Andi` dengan status HTTP 200.
-- Nilai uji berisi tag `<script>` ditampilkan sebagai teks ter-escape.
-- Tanpa parameter `nama`, halaman tetap HTTP 200 tanpa keluaran nama atau peringatan PHP.
-- Parameter `nama[]` juga tidak menimbulkan peringatan.
-- Kode formulir GET dan pemanggilan `contactForm.submit()` sudah diperiksa. Apache Laragon tidak aktif saat pengujian; permintaan GET diuji melalui server PHP sementara.
-
-## D. Perbandingan GET dan POST
-
-- GET mengirim nilai formulir melalui query string pada URL; cocok untuk pencarian atau pengambilan data yang tidak mengubah keadaan aplikasi.
-- POST mengirim nilai melalui request body dan lebih sesuai untuk formulir Kontak yang akan diproses oleh PHP.
-- POST tidak otomatis mengenkripsi atau mengamankan data. Perlindungan saat transmisi memerlukan HTTPS.
-- Keputusan tahap D: formulir utama P7 akan menggunakan POST. Implementasi perubahan method dan penerimaan `$_POST` dilakukan pada tahap E; pada checkpoint D, formulir masih GET.
-
-## E1. Artefak Demonstrasi GET
-
-- Menyalin halaman tahap C menjadi `indexGet.php` agar contoh GET tetap tersedia saat halaman utama nanti beralih ke POST.
-- Formulir di salinan ini tetap menggunakan `method="get"` dan mengarah ke `action="indexGet.php"`.
-- Kode pembacaan parameter `$_GET['nama']` tetap dipertahankan.
-
-### Hasil Pemeriksaan Tahap E1
-
-- `indexGet.php` lolos `php -l`.
-- `indexGet.php?nama=Andi` memberi HTTP 200 dan menampilkan nama yang diterima.
-- Respons halaman memastikan form GET mengarah kembali ke `indexGet.php`.
-
-## E2. Formulir Utama Menggunakan POST
-
-- Mengubah form Kontak pada `index.php` menjadi `method="post"` dengan tujuan tetap `action="index.php"`.
-- Artefak pembanding `indexGet.php` tetap memakai GET.
-- Penerimaan dan pemrosesan nilai `$_POST` dilakukan pada tahap E3, jadi belum diuji dengan pengiriman POST pada checkpoint ini.
-
-### Hasil Pemeriksaan Tahap E2
-
-- `index.php` lolos `php -l`.
-- Pemeriksaan atribut memastikan form utama POST dan tujuan pengiriman tetap `index.php`.
-- Pemeriksaan `indexGet.php` memastikan demonstrasi GET tetap terpisah.
-
-## E3. Menerima Nama dengan POST
-
-- Mengganti handler utama agar membaca `nama` dari `$_POST` dan menampilkan teksnya setelah `htmlspecialchars()`.
-- Handler GET tetap berada pada `indexGet.php`; halaman utama hanya membaca nama dari POST.
-- Tahap ini baru membaca input `nama`. Input formulir lainnya ditangani pada E4.
-
-### Hasil Pemeriksaan Tahap E3
-
-- `index.php` lolos `php -l`.
-- POST ke halaman utama menampilkan `Nama yang diterima: Andi` dengan HTTP 200.
-- Nilai nama berisi tag `<script>` ditampilkan sebagai teks ter-escape.
-- Query `?nama=Andi` tidak diproses oleh handler POST, sedangkan `indexGet.php?nama=Budi` masih diproses oleh demonstrasi GET.
-- Membuka halaman tanpa nilai POST tetap HTTP 200 tanpa peringatan PHP.
-
-## E4. Membaca Berbagai Jenis Input POST
-
-- Membaca email, semester, tanggal, jenis pesan, program studi, pesan, dan pilihan minat dari `$_POST` menggunakan `??` untuk nilai awal.
-- Mengubah kedua checkbox pada formulir utama menjadi `name="minat[]"`, sehingga beberapa pilihan diterima sebagai array PHP.
-- Mempertahankan checkbox demonstrasi GET dengan `name="minat"`.
-- Menyesuaikan selector JavaScript agar memeriksa pilihan pada kedua nama checkbox tersebut.
-
-### Hasil Pemeriksaan Tahap E4
-
-- `index.php` lolos `php -l` dan `script.js` lolos `node --check`.
-- Pemeriksaan PHP dengan nilai POST contoh memastikan semua field scalar terbaca dan `minat` berisi `HTML` serta `CSS`.
-- Pemeriksaan kode memastikan form utama memakai `minat[]`, form GET tetap memakai `minat`, dan selector JavaScript mencakup keduanya.
-
-## F1. Alasan Validasi Sisi Peladen
-
-Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan benar, tetapi dapat dilewati jika JavaScript dinonaktifkan atau permintaan dikirim langsung. Karena itu, PHP tetap perlu memeriksa data POST di sisi peladen. Validasi server untuk kelengkapan, format, tipe, dan nilai pilihan dimulai pada tahap F2; formulir demonstrasi GET tidak diubah.
-
-## F2. Memeriksa Kelengkapan Data
-
-- Menambahkan pemeriksaan required-field hanya ketika metode permintaan adalah POST.
-- Memeriksa nama, email, semester, tanggal kunjungan, jenis pesan, program studi, pesan, dan minimal satu pilihan minat.
-- Mengumpulkan pesan kesalahan di `$pesanKesalahan`. Sesuai urutan modul, pesan tersebut belum ditampilkan pada halaman; penampilan dilakukan pada F6.
-
-### Hasil Pemeriksaan Tahap F2
-
-- `index.php` lolos `php -l`.
-- Uji PHP dengan POST kosong menghasilkan seluruh pesan kelengkapan yang diharapkan.
-- POST lengkap tidak menghasilkan pesan kesalahan kelengkapan.
-- Permintaan GET melewati pemeriksaan wajib POST.
-
-## F3. Validasi Format Email dan Semester
-
-- Memastikan semester berupa bilangan bulat dalam rentang 1–14 menggunakan `filter_var()` dan pemeriksaan rentang.
-- Memastikan email memakai format yang diterima `FILTER_VALIDATE_EMAIL`.
-- Pemeriksaan format dilewati untuk nilai kosong agar pesan kelengkapan F2 tidak diduplikasi.
-
-### Hasil Pemeriksaan Tahap F3
-
-- `index.php` lolos `php -l`.
-- Semester 1 dan 14 diterima; 0, 15, dan 4.5 ditolak.
-- Email tidak valid ditolak.
-- Nilai kosong tetap menghasilkan pesan kelengkapan tanpa pesan format tambahan.
-
-## F4. Validasi Nilai Pilihan
-
-- Membatasi jenis pesan pada `pertanyaan` atau `saran`.
-- Memeriksa pilihan program studi dengan perbandingan ketat. Daftar yang diizinkan mengikuti pilihan yang ada pada form: `SI`, `BD`, dan `TI`.
-- Memeriksa bahwa `minat` berbentuk array dan setiap topik hanya `HTML` atau `CSS`.
-
-### Hasil Pemeriksaan Tahap F4
-
-- `index.php` lolos `php -l`.
-- Nilai pilihan valid diterima, termasuk program studi BD yang tersedia pada form.
-- Jenis pesan dan program yang tidak diizinkan ditolak.
-- Topik yang tidak dikenal dan nilai minat yang bukan array ditolak.
-- Array minat kosong memicu pesan kelengkapan dari F2.
-
-## F5. Normalisasi Data Masukan
-
-- Menormalkan input teks dengan fungsi `normalizeFormText()` sebelum pemeriksaan F2–F4.
-- `trim()` membuang spasi di awal/akhir; nilai scalar dikonversi ke string terlebih dahulu.
-- Nilai non-scalar diperlakukan sebagai kosong dengan aman. Checkbox `minat` tetap dipertahankan sebagai array.
-- Normalisasi ini tidak menggantikan validasi; pengamanan keluaran HTML dibahas pada F6.
-
-### Hasil Pemeriksaan Tahap F5
-
-- `index.php` lolos `php -l`.
-- Input dengan spasi di awal/akhir dinormalisasi dan lolos pemeriksaan bila nilainya valid.
-- Nilai email berbentuk array ditangani tanpa peringatan dan ditandai wajib diisi.
-- Permintaan GET melewati validasi POST.
-
-## F6.1. Menampilkan Pesan Kesalahan Validasi
-
-- Menghapus keluaran nama POST yang sebelumnya berada sebelum doctype.
-- Menampilkan `$pesanKesalahan` setelah judul Kontak hanya jika ada kesalahan, menggunakan `htmlspecialchars()`.
-- Bagian data yang diterima belum ditambahkan; itu tahap F6.2.
-
-### Hasil Pemeriksaan Tahap F6.1
-
-- `index.php` lolos `php -l`.
-- POST kosong menampilkan panel kesalahan dan seluruh pesan kelengkapan/pilihan yang diharapkan.
-- POST lengkap tanpa kesalahan tidak menampilkan panel kesalahan.
-- Email tidak valid menampilkan pesan kesalahan format.
-- Respons HTML dimulai dengan doctype, tanpa keluaran PHP sebelum HTML.
-
-## F6.2. Menampilkan Data yang Diterima Peladen
-
-- Menampilkan data kiriman hanya setelah formulir dikirim dengan metode POST.
-- Mengamankan nama, email, semester, tanggal kunjungan, jenis pesan, program studi, topik minat, dan pesan dengan `htmlspecialchars()`.
-- Menampilkan keterangan jika tidak ada topik minat yang dipilih.
-- Mempertahankan baris baru pada pesan menggunakan `nl2br()` setelah keluaran di-escape.
-
-### Hasil Pemeriksaan Tahap F6.2
-
-- `index.php` lolos `php -l`.
-- GET tidak menampilkan bagian data yang diterima.
-- POST menampilkan data formulir dan pilihan minat.
-- Teks yang berisi tag HTML ditampilkan sebagai teks, dan baris baru pada pesan dipertahankan.
-
-## G1. Menyiapkan Session
-
-- Menambahkan `session_start()` tepat setelah tag pembuka PHP di awal `index.php`, sebelum kode PHP lain dan sebelum keluaran HTML.
-- Tahap ini hanya menyiapkan session; penyimpanan data formulir dan alur redirect dikerjakan pada tahap berikutnya.
-
-### Hasil Pemeriksaan Tahap G1
-
-- `index.php` lolos `php -l`.
-- GET memulai session tanpa menghasilkan peringatan dan memberikan cookie session.
-
-## G2. Menerapkan Session dan Pola PRG
-
-- Menyimpan pesan validasi dan data formulir ke `$_SESSION` setelah POST.
-- Mengalihkan POST kembali ke `index.php` dan menghentikan proses dengan `exit`.
-- Mengambil kembali pesan dan data formulir dari session pada permintaan GET.
-- Menghapus pesan validasi dari session setelah ditampilkan, sementara data formulir tetap tersedia.
-- Menampilkan bagian data yang diterima berdasarkan ketersediaan nama di session agar tetap tampil setelah redirect.
-
-## G3. Pengujian Session dan PRG
-
-### Hasil Pemeriksaan Tahap G3
-
-- `index.php` lolos `php -l`.
-- POST valid dengan semester 3 dan topik HTML dialihkan ke `index.php`; nama, pilihan minat, dan data formulir tampil setelah redirect.
-- GET ulang dengan session yang sama tetap menampilkan data tanpa mengirim ulang POST.
-- POST tidak valid menampilkan pesan validasi setelah redirect; pada GET berikutnya pesan tersebut sudah dihapus.
+- `index.php` dan `indexGet.php` lolos `php -l`.
+- Halaman utama dan contoh GET merespons HTTP 200 tanpa peringatan PHP.
+- Nilai HTML pada nama di-escape; parameter `nama[]` tidak menimbulkan peringatan.
+- POST valid dialihkan ke GET; data tetap tampil setelah refresh.
+- POST tidak valid menampilkan pesan validasi sekali.
+- Pengujian akhir dijalankan pada server bawaan PHP lokal di `127.0.0.1:18098`.
