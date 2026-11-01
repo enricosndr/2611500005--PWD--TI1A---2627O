@@ -107,3 +107,16 @@ Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan b
 - Uji PHP dengan POST kosong menghasilkan seluruh pesan kelengkapan yang diharapkan.
 - POST lengkap tidak menghasilkan pesan kesalahan kelengkapan.
 - Permintaan GET melewati pemeriksaan wajib POST.
+
+## F3. Validasi Format Email dan Semester
+
+- Memastikan semester berupa bilangan bulat dalam rentang 1–14 menggunakan `filter_var()` dan pemeriksaan rentang.
+- Memastikan email memakai format yang diterima `FILTER_VALIDATE_EMAIL`.
+- Pemeriksaan format dilewati untuk nilai kosong agar pesan kelengkapan F2 tidak diduplikasi.
+
+### Hasil Pemeriksaan Tahap F3
+
+- `index.php` lolos `php -l`.
+- Semester 1 dan 14 diterima; 0, 15, dan 4.5 ditolak.
+- Email tidak valid ditolak.
+- Nilai kosong tetap menghasilkan pesan kelengkapan tanpa pesan format tambahan.

@@ -47,6 +47,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!is_array($minat) || empty($minat)) {
         $pesanKesalahan .= 'Minat wajib dipilih minimal satu. ';
     }
+
+    if ($semesterForm !== '' && !is_string($semesterForm)) {
+        $pesanKesalahan .= 'Semester harus berupa bilangan bulat antara 1 dan 14. ';
+    } elseif (is_string($semesterForm) && trim($semesterForm) !== '') {
+        $semesterValid = filter_var($semesterForm, FILTER_VALIDATE_INT);
+        if ($semesterValid === false || $semesterValid < 1 || $semesterValid > 14) {
+            $pesanKesalahan .= 'Semester harus berupa bilangan bulat antara 1 dan 14. ';
+        }
+    }
+
+    if (is_string($email) && trim($email) !== '') {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
+            $pesanKesalahan .= 'Format email tidak valid. ';
+        }
+    } elseif ($email !== '' && !is_string($email)) {
+        $pesanKesalahan .= 'Format email tidak valid. ';
+    }
 }
 
 // P6: PHP dasar dan pemrograman sisi peladen
