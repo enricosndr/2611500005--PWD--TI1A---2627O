@@ -32,3 +32,10 @@ Tahun ajaran: 2026/2027 Gasal
 - Tanpa parameter `nama`, halaman tetap HTTP 200 tanpa keluaran nama atau peringatan PHP.
 - Parameter `nama[]` juga tidak menimbulkan peringatan.
 - Kode formulir GET dan pemanggilan `contactForm.submit()` sudah diperiksa. Apache Laragon tidak aktif saat pengujian; permintaan GET diuji melalui server PHP sementara.
+
+## D. Perbandingan GET dan POST
+
+- GET mengirim nilai formulir melalui query string pada URL; cocok untuk pencarian atau pengambilan data yang tidak mengubah keadaan aplikasi.
+- POST mengirim nilai melalui request body dan lebih sesuai untuk formulir Kontak yang akan diproses oleh PHP.
+- POST tidak otomatis mengenkripsi atau mengamankan data. Perlindungan saat transmisi memerlukan HTTPS.
+- Keputusan tahap D: formulir utama P7 akan menggunakan POST. Implementasi perubahan method dan penerimaan `$_POST` dilakukan pada tahap E; pada checkpoint D, formulir masih GET.
