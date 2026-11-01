@@ -162,3 +162,17 @@ Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan b
 - POST lengkap tanpa kesalahan tidak menampilkan panel kesalahan.
 - Email tidak valid menampilkan pesan kesalahan format.
 - Respons HTML dimulai dengan doctype, tanpa keluaran PHP sebelum HTML.
+
+## F6.2. Menampilkan Data yang Diterima Peladen
+
+- Menampilkan data kiriman hanya setelah formulir dikirim dengan metode POST.
+- Mengamankan nama, email, semester, tanggal kunjungan, jenis pesan, program studi, topik minat, dan pesan dengan `htmlspecialchars()`.
+- Menampilkan keterangan jika tidak ada topik minat yang dipilih.
+- Mempertahankan baris baru pada pesan menggunakan `nl2br()` setelah keluaran di-escape.
+
+### Hasil Pemeriksaan Tahap F6.2
+
+- `index.php` lolos `php -l`.
+- GET tidak menampilkan bagian data yang diterima.
+- POST menampilkan data formulir dan pilihan minat.
+- Teks yang berisi tag HTML ditampilkan sebagai teks, dan baris baru pada pesan dipertahankan.
