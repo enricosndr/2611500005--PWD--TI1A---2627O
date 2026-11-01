@@ -94,3 +94,16 @@ Tahun ajaran: 2026/2027 Gasal
 ## F1. Alasan Validasi Sisi Peladen
 
 Validasi JavaScript dan atribut HTML membantu pengguna mengisi formulir dengan benar, tetapi dapat dilewati jika JavaScript dinonaktifkan atau permintaan dikirim langsung. Karena itu, PHP tetap perlu memeriksa data POST di sisi peladen. Validasi server untuk kelengkapan, format, tipe, dan nilai pilihan dimulai pada tahap F2; formulir demonstrasi GET tidak diubah.
+
+## F2. Memeriksa Kelengkapan Data
+
+- Menambahkan pemeriksaan required-field hanya ketika metode permintaan adalah POST.
+- Memeriksa nama, email, semester, tanggal kunjungan, jenis pesan, program studi, pesan, dan minimal satu pilihan minat.
+- Mengumpulkan pesan kesalahan di `$pesanKesalahan`. Sesuai urutan modul, pesan tersebut belum ditampilkan pada halaman; penampilan dilakukan pada F6.
+
+### Hasil Pemeriksaan Tahap F2
+
+- `index.php` lolos `php -l`.
+- Uji PHP dengan POST kosong menghasilkan seluruh pesan kelengkapan yang diharapkan.
+- POST lengkap tidak menghasilkan pesan kesalahan kelengkapan.
+- Permintaan GET melewati pemeriksaan wajib POST.

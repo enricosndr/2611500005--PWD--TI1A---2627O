@@ -13,6 +13,42 @@ $prodi = $_POST['prodi'] ?? '';
 $pesan = $_POST['pesan'] ?? '';
 $minat = $_POST['minat'] ?? [];
 
+$pesanKesalahan = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (trim($nama ?? '') === '') {
+        $pesanKesalahan .= 'Nama lengkap wajib diisi. ';
+    }
+
+    if (!is_string($email) || trim($email) === '') {
+        $pesanKesalahan .= 'Email wajib diisi. ';
+    }
+
+    if (!is_string($semesterForm) || trim($semesterForm) === '') {
+        $pesanKesalahan .= 'Semester wajib diisi. ';
+    }
+
+    if (!is_string($tanggal) || trim($tanggal) === '') {
+        $pesanKesalahan .= 'Tanggal kunjungan wajib diisi. ';
+    }
+
+    if (!is_string($jenisPesan) || $jenisPesan === '') {
+        $pesanKesalahan .= 'Jenis pesan wajib dipilih. ';
+    }
+
+    if (!is_string($prodi) || $prodi === '') {
+        $pesanKesalahan .= 'Program studi wajib dipilih. ';
+    }
+
+    if (!is_string($pesan) || trim($pesan) === '') {
+        $pesanKesalahan .= 'Pesan wajib diisi. ';
+    }
+
+    if (!is_array($minat) || empty($minat)) {
+        $pesanKesalahan .= 'Minat wajib dipilih minimal satu. ';
+    }
+}
+
 // P6: PHP dasar dan pemrograman sisi peladen
 // Bagian 1: Variabel dan konstanta
 $nim = "2611500005";
