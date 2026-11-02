@@ -63,7 +63,7 @@ contactForm.addEventListener("submit", (event) => {
   }
 
   const topikDipilih = document.querySelectorAll(
-    'input[name="minat"]:checked',
+    'input[name="minat[]"]:checked',
   );
 
   if (topikDipilih.length === 0) {
@@ -90,6 +90,7 @@ contactForm.addEventListener("submit", (event) => {
 
   formFeedback.textContent = "Form berhasil divalidasi.";
   formFeedback.className = "form-feedback-success";
+  contactForm.submit();
 });
 
 contactForm.addEventListener("input", () => {
