@@ -188,6 +188,7 @@ $pesan = $_SESSION['pesan'] ?? '';
             <ul id="navMenu">
                 <li><a href="#home">Beranda</a></li>
                 <li><a href="#about">Tentang</a></li>
+                <li><a href="#rencana-kegiatan">Rencana Kegiatan</a></li>
                 <li><a href="#contact">Kontak</a></li>
             </ul>
         </nav>
