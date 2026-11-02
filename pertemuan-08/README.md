@@ -33,3 +33,4 @@
 - Data HTML ditampilkan sebagai teks biasa.
 - `indexGet.php` menampilkan parameter GET yang dikirim dan mengamankan keluarannya.
 - Formulir Kontak tetap berfungsi.
+- Status kegiatan tersimpan dan tampil sesuai pilihan pada tabel.
