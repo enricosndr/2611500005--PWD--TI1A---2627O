@@ -16,7 +16,8 @@ $prodi = normalizeFormText($_POST['prodi'] ?? '');
 $pesan = normalizeFormText($_POST['pesan'] ?? '');
 $minat = $_POST['minat'] ?? [];
 $formType = $_POST['form_type'] ?? '';
-$isRencanaKegiatanPost = $_SERVER['REQUEST_METHOD'] === 'POST'
+$isRencanaKegiatanPost =
+    $_SERVER['REQUEST_METHOD'] === 'POST'
     && $formType === 'rencana_kegiatan';
 
 $namaKegiatan = normalizeFormText($_POST['nama_kegiatan'] ?? '');
@@ -24,14 +25,13 @@ $kategoriKegiatan = normalizeFormText($_POST['kategori_kegiatan'] ?? '');
 $tanggalKegiatan = normalizeFormText($_POST['tanggal_kegiatan'] ?? '');
 $lokasiKegiatan = normalizeFormText($_POST['lokasi_kegiatan'] ?? '');
 $deskripsiKegiatan = normalizeFormText($_POST['deskripsi_kegiatan'] ?? '');
-$statusKegiatan = normalizeFormText($_POST['status_kegiatan'] ?? '');
 $pesanKesalahanKegiatan = '';
 
 
 
 $pesanKesalahan = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isRencanaKegiatanPost) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (trim($nama ?? '') === '') {
         $pesanKesalahan .= 'Nama lengkap wajib diisi. ';
     }
@@ -102,129 +102,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isRencanaKegiatanPost) {
     }
 }
 
-if ($isRencanaKegiatanPost) {
-    if ($namaKegiatan === '') {
-        $pesanKesalahanKegiatan .= 'Nama kegiatan wajib diisi. ';
-    } elseif (strlen($namaKegiatan) > 100) {
-        $pesanKesalahanKegiatan .= 'Nama kegiatan maksimal 100 karakter. ';
-    }
-
-    $kategoriDiizinkan = [
-        'Akademik',
-        'Lomba',
-        'Workshop',
-        'Organisasi',
-        'Pengabdian'
-    ];
-
-    if ($kategoriKegiatan === '') {
-        $pesanKesalahanKegiatan .= 'Kategori kegiatan wajib dipilih. ';
-    } elseif (!in_array($kategoriKegiatan, $kategoriDiizinkan, true)) {
-        $pesanKesalahanKegiatan .= 'Kategori kegiatan tidak valid. ';
-    }
-
-    $statusDiizinkan = [
-        'Direncanakan',
-        'Dalam Persiapan',
-        'Selesai'
-    ];
-
-    if ($statusKegiatan === '') {
-        $pesanKesalahanKegiatan .= 'Status kegiatan wajib dipilih. ';
-    } elseif (!in_array($statusKegiatan, $statusDiizinkan, true)) {
-        $pesanKesalahanKegiatan .= 'Status kegiatan tidak valid. ';
-    }
-    if ($tanggalKegiatan === '') {
-        $pesanKesalahanKegiatan .= 'Tanggal pelaksanaan wajib diisi. ';
-    } else {
-        $bagianTanggal = explode('-', $tanggalKegiatan);
-        $tanggalValid = preg_match(
-            '/^\d{4}-\d{2}-\d{2}$/',
-            $tanggalKegiatan
-        ) === 1;
-
-        if ($tanggalValid) {
-            $tanggalValid = checkdate(
-                (int) $bagianTanggal[1],
-                (int) $bagianTanggal[2],
-                (int) $bagianTanggal[0]
-            );
-        }
-
-        if (!$tanggalValid) {
-            $pesanKesalahanKegiatan .= 'Tanggal pelaksanaan tidak valid. ';
-        }
-    }
-
-    if ($lokasiKegiatan === '') {
-        $pesanKesalahanKegiatan .= 'Lokasi kegiatan wajib diisi. ';
-    } elseif (strlen($lokasiKegiatan) > 150) {
-        $pesanKesalahanKegiatan .= 'Lokasi kegiatan maksimal 150 karakter. ';
-    }
-
-    if ($deskripsiKegiatan === '') {
-        $pesanKesalahanKegiatan .= 'Deskripsi kegiatan wajib diisi. ';
-    } elseif (strlen($deskripsiKegiatan) > 500) {
-        $pesanKesalahanKegiatan .= 'Deskripsi kegiatan maksimal 500 karakter. ';
-    }
-}
-if ($isRencanaKegiatanPost) {
-    $dataRencanaKegiatan = [
-        'nama_kegiatan' => $namaKegiatan,
-        'kategori_kegiatan' => $kategoriKegiatan,
-        'status_kegiatan' => $statusKegiatan,
-        'tanggal_kegiatan' => $tanggalKegiatan,
-        'lokasi_kegiatan' => $lokasiKegiatan,
-        'deskripsi_kegiatan' => $deskripsiKegiatan
-    ];
-
-    if ($pesanKesalahanKegiatan === '') {
-        if (!isset($_SESSION['rencanaKegiatan']) || !is_array($_SESSION['rencanaKegiatan'])) {
-            $_SESSION['rencanaKegiatan'] = [];
-        }
-
-        $_SESSION['rencanaKegiatan'][] = $dataRencanaKegiatan;
-        $_SESSION['pesanSuksesKegiatan'] = 'Rencana kegiatan berhasil ditambahkan.';
-        unset($_SESSION['inputRencanaKegiatan'], $_SESSION['pesanKesalahanKegiatan']);
-    } else {
-        $_SESSION['inputRencanaKegiatan'] = $dataRencanaKegiatan;
-        $_SESSION['pesanKesalahanKegiatan'] = $pesanKesalahanKegiatan;
-        unset($_SESSION['pesanSuksesKegiatan']);
-    }
-
-    header('Location: index.php#rencana-kegiatan');
-    exit;
-}
-
-$pesanKesalahanKegiatan = $_SESSION['pesanKesalahanKegiatan'] ?? '';
-$pesanSuksesKegiatan = $_SESSION['pesanSuksesKegiatan'] ?? '';
-$inputRencanaKegiatan = $_SESSION['inputRencanaKegiatan'] ?? [];
-$rencanaKegiatan = $_SESSION['rencanaKegiatan'] ?? [];
-
-if (!is_array($inputRencanaKegiatan)) {
-    $inputRencanaKegiatan = [];
-}
-if (!is_array($rencanaKegiatan)) {
-    $rencanaKegiatan = [];
-}
-
-unset(
-    $_SESSION['pesanKesalahanKegiatan'],
-    $_SESSION['pesanSuksesKegiatan'],
-    $_SESSION['inputRencanaKegiatan']
-);
 // P6: PHP dasar dan pemrograman sisi peladen
 // Bagian 1: Variabel dan konstanta
-$nim = "2611500005";
-$namaMahasiswa = "Enrico Sandra";
-$programStudi = "TI";
+$nim = "0344300002";
+$namaMahasiswa = "Cantika Putih";
+$programStudi = "SI";
 $tahunAkademik = "2026/2027";
-$semester = 1;
-$ipk = 4.00;
+$semester = 4;
+$ipk = 3.75;
 $statusAktif = true;
 $catatanTambahan = null;
 const NAMA_MATA_KULIAH = "Pemrograman Web Dasar";
-const PROFIL_GITHUB = "enricosndr";
+const PROFIL_GITHUB = "satpamal";
 // Bagian 2: Operator
 $batasSemester = 8;
 $sisaSemester = $batasSemester - $semester;
@@ -254,7 +143,7 @@ switch ($programStudi) {
     default:
         $fokusProgramStudi = "Belum ditentukan";
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isRencanaKegiatanPost) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['pesanKesalahan'] = $pesanKesalahan;
 
     $_SESSION['nama'] = $nama;
@@ -322,7 +211,7 @@ $pesan = $_SESSION['pesan'] ?? '';
             <p>Halo, saya <strong><?php echo $namaMahasiswa; ?></strong>. Saya sedang mempelajari matakuliah
 <strong><?php print NAMA_MATA_KULIAH; ?></strong> pada tahun akademik
 <?php echo $tahunAkademik; ?>.</p>
-            <img src="img/foto-profil.jpg" alt="Foto profil Enrico Sandra">
+            <img src="img/foto-profil.jpg" alt="Foto profil Cantika Putih">
         </section>
 
         <section id="about">
@@ -381,30 +270,17 @@ $pesan = $_SESSION['pesan'] ?? '';
                      <section id="rencana-kegiatan">
             <h2>Rencana Kegiatan Mahasiswa</h2>
 
-            <?php if (strlen($pesanKesalahanKegiatan) > 0): ?>
-                <p class="form-feedback-error">
-                    <?= htmlspecialchars($pesanKesalahanKegiatan, ENT_QUOTES, 'UTF-8') ?>
-                </p>
-            <?php endif; ?>
-            <?php if ($pesanSuksesKegiatan !== ''): ?>
-                <p class="form-feedback-success">
-                    <?= htmlspecialchars($pesanSuksesKegiatan, ENT_QUOTES, 'UTF-8') ?>
-                </p>
-            <?php endif; ?>
             <form id="activityForm"
                   data-validation="activity"
                   action="index.php#rencana-kegiatan"
                   method="post"
                   novalidate>
-                <input type="hidden" name="form_type" value="rencana_kegiatan">
-
+                  <input type="hidden" name="form_type" value="rencana_kegiatan">
                 <div class="form-group">
                     <label for="nama_kegiatan">Nama Kegiatan</label><br>
                     <input class="input-form" type="text"
                            id="nama_kegiatan" name="nama_kegiatan"
-                           maxlength="100"
-                           value="<?= htmlspecialchars($inputRencanaKegiatan['nama_kegiatan'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           required>
+                           maxlength="100" required>
                 </div>
 
                 <div class="form-group">
@@ -412,29 +288,18 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <select class="input-form" id="kategori_kegiatan"
                             name="kategori_kegiatan" required>
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="Akademik" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Akademik' ? 'selected' : '' ?>>Akademik</option>
-                        <option value="Lomba" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Lomba' ? 'selected' : '' ?>>Lomba</option>
-                        <option value="Workshop" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Workshop' ? 'selected' : '' ?>>Workshop</option>
-                        <option value="Organisasi" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Organisasi' ? 'selected' : '' ?>>Organisasi</option>
-                        <option value="Pengabdian" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Pengabdian' ? 'selected' : '' ?>>Pengabdian</option>
+                        <option value="Akademik">Akademik</option>
+                        <option value="Lomba">Lomba</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Organisasi">Organisasi</option>
+                        <option value="Pengabdian">Pengabdian</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="status_kegiatan">Status Kegiatan</label><br>
-                    <select class="input-form" id="status_kegiatan"
-                            name="status_kegiatan" required>
-                        <option value="">-- Pilih Status --</option>
-                        <option value="Direncanakan" <?= ($inputRencanaKegiatan['status_kegiatan'] ?? '') === 'Direncanakan' ? 'selected' : '' ?>>Direncanakan</option>
-                        <option value="Dalam Persiapan" <?= ($inputRencanaKegiatan['status_kegiatan'] ?? '') === 'Dalam Persiapan' ? 'selected' : '' ?>>Dalam Persiapan</option>
-                        <option value="Selesai" <?= ($inputRencanaKegiatan['status_kegiatan'] ?? '') === 'Selesai' ? 'selected' : '' ?>>Selesai</option>
-                    </select>
-                </div>
-                <div class="form-group">
                     <label for="tanggal_kegiatan">Tanggal Pelaksanaan</label><br>
                     <input class="input-form" type="date"
                            id="tanggal_kegiatan" name="tanggal_kegiatan"
-                           value="<?= htmlspecialchars($inputRencanaKegiatan['tanggal_kegiatan'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
                            required>
                 </div>
 
@@ -442,16 +307,14 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <label for="lokasi_kegiatan">Lokasi Kegiatan</label><br>
                     <input class="input-form" type="text"
                            id="lokasi_kegiatan" name="lokasi_kegiatan"
-                           maxlength="150"
-                           value="<?= htmlspecialchars($inputRencanaKegiatan['lokasi_kegiatan'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
-                           required>
+                           maxlength="150" required>
                 </div>
 
                 <div class="form-group">
                     <label for="deskripsi_kegiatan">Deskripsi Kegiatan</label><br>
                     <textarea class="input-form" id="deskripsi_kegiatan"
                               name="deskripsi_kegiatan" maxlength="500"
-                              required><?= htmlspecialchars($inputRencanaKegiatan['deskripsi_kegiatan'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
+                              required></textarea>
                 </div>
 
                 <button type="submit">Kirim</button>
@@ -459,36 +322,6 @@ $pesan = $_SESSION['pesan'] ?? '';
                 <p class="form-feedback" data-form-feedback
                    aria-live="polite"></p>
             </form>
-            <?php if (count($rencanaKegiatan) > 0): ?>
-                <div class="activity-table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Nama Kegiatan</th>
-                                <th>Kategori</th>
-                                <th>Status</th>
-                                <th>Tanggal</th>
-                                <th>Lokasi</th>
-                                <th>Deskripsi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($rencanaKegiatan as $nomor => $kegiatan): ?>
-                                <tr>
-                                    <td><?= $nomor + 1 ?></td>
-                                    <td><?= htmlspecialchars((string) ($kegiatan['nama_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                    <td><?= htmlspecialchars((string) ($kegiatan['kategori_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                    <td><?= htmlspecialchars((string) ($kegiatan['status_kegiatan'] ?? 'Belum ditentukan'), ENT_QUOTES, 'UTF-8') ?></td>
-                                    <td><?= htmlspecialchars((string) ($kegiatan['tanggal_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                    <td><?= htmlspecialchars((string) ($kegiatan['lokasi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                    <td><?= nl2br(htmlspecialchars((string) ($kegiatan['deskripsi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8')) ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            <?php endif; ?>
         </section>  
 
         <section id="contact">

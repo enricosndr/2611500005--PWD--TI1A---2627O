@@ -25,16 +25,16 @@ foreach ($labelGet as $key => $label) {
 }
 // P6: PHP dasar dan pemrograman sisi peladen
 // Bagian 1: Variabel dan konstanta
-$nim = "2611500005";
-$namaMahasiswa = "Enrico Sandra";
-$programStudi = "TI";
+$nim = "0344300002";
+$namaMahasiswa = "Cantika Putih";
+$programStudi = "SI";
 $tahunAkademik = "2026/2027";
-$semester = 1;
-$ipk = 4.00;
+$semester = 4;
+$ipk = 3.75;
 $statusAktif = true;
 $catatanTambahan = null;
 const NAMA_MATA_KULIAH = "Pemrograman Web Dasar";
-const PROFIL_GITHUB = "enricosndr";
+const PROFIL_GITHUB = "satpamal";
 // Bagian 2: Operator
 $batasSemester = 8;
 $sisaSemester = $batasSemester - $semester;
@@ -105,7 +105,7 @@ switch ($programStudi) {
             <p>Halo, saya <strong><?php echo $namaMahasiswa; ?></strong>. Saya sedang mempelajari matakuliah
 <strong><?php print NAMA_MATA_KULIAH; ?></strong> pada tahun akademik
 <?php echo $tahunAkademik; ?>.</p>
-            <img src="img/foto-profil.jpg" alt="Foto profil Enrico Sandra">
+            <img src="img/foto-profil.jpg" alt="Foto profil Cantika Putih">
         </section>
 
         <section id="about">
