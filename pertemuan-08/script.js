@@ -63,7 +63,7 @@ contactForm.addEventListener("submit", (event) => {
   }
 
   const topikDipilih = document.querySelectorAll(
-    'input[name="minat"]:checked, input[name="minat[]"]:checked',
+    'input[name="minat"]:checked',
   );
 
   if (topikDipilih.length === 0) {
@@ -90,7 +90,6 @@ contactForm.addEventListener("submit", (event) => {
 
   formFeedback.textContent = "Form berhasil divalidasi.";
   formFeedback.className = "form-feedback-success";
-  contactForm.submit();
 });
 
 contactForm.addEventListener("input", () => {
@@ -102,3 +101,69 @@ contactForm.addEventListener("reset", () => {
   formFeedback.textContent = "";
   formFeedback.className = "";
 });
+const activityForm = document.getElementById("activityForm");
+
+if (activityForm) {
+  const activityFeedback = activityForm.querySelector(
+    "[data-form-feedback]",
+  );
+
+  const ambilNilai = (nama) =>
+    activityForm.elements.namedItem(nama).value.trim();
+
+  const tampilkanFeedback = (pesan, kelas) => {
+    activityFeedback.textContent = pesan;
+    activityFeedback.className = kelas;
+  };
+
+  const bersihkanFeedback = () => {
+    activityFeedback.textContent = "";
+    activityFeedback.className = "form-feedback";
+  };
+
+  activityForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const nama = ambilNilai("nama_kegiatan");
+    const kategori = ambilNilai("kategori_kegiatan");
+    const tanggal = ambilNilai("tanggal_kegiatan");
+    const lokasi = ambilNilai("lokasi_kegiatan");
+    const deskripsi = ambilNilai("deskripsi_kegiatan");
+
+    let kesalahan = "";
+
+    if (nama === "") {
+      kesalahan = "Nama kegiatan wajib diisi.";
+    } else if (nama.length > 100) {
+      kesalahan = "Nama kegiatan maksimal 100 karakter.";
+    } else if (kategori === "") {
+      kesalahan = "Pilih kategori kegiatan.";
+    } else if (tanggal === "") {
+      kesalahan = "Tanggal pelaksanaan wajib diisi.";
+    } else if (lokasi === "") {
+      kesalahan = "Lokasi kegiatan wajib diisi.";
+    } else if (lokasi.length > 150) {
+      kesalahan = "Lokasi kegiatan maksimal 150 karakter.";
+    } else if (deskripsi === "") {
+      kesalahan = "Deskripsi kegiatan wajib diisi.";
+    } else if (deskripsi.length > 500) {
+      kesalahan = "Deskripsi kegiatan maksimal 500 karakter.";
+    }
+
+    if (kesalahan !== "") {
+      tampilkanFeedback(kesalahan, "form-feedback-error");
+      return;
+    }
+
+    tampilkanFeedback(
+      "Form rencana kegiatan berhasil divalidasi.",
+      "form-feedback-success",
+    );
+
+    activityForm.submit();
+  });
+
+  activityForm.addEventListener("input", bersihkanFeedback);
+  activityForm.addEventListener("change", bersihkanFeedback);
+  activityForm.addEventListener("reset", bersihkanFeedback);
+}
