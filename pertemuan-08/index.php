@@ -256,6 +256,62 @@ $pesan = $_SESSION['pesan'] ?? '';
             </article>
         </section>
 
+                     <section id="rencana-kegiatan">
+            <h2>Rencana Kegiatan Mahasiswa</h2>
+
+            <form id="activityForm"
+                  data-validation="activity"
+                  action="index.php#rencana-kegiatan"
+                  method="post"
+                  novalidate>
+                <div class="form-group">
+                    <label for="nama_kegiatan">Nama Kegiatan</label><br>
+                    <input class="input-form" type="text"
+                           id="nama_kegiatan" name="nama_kegiatan"
+                           maxlength="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="kategori_kegiatan">Kategori Kegiatan</label><br>
+                    <select class="input-form" id="kategori_kegiatan"
+                            name="kategori_kegiatan" required>
+                        <option value="">-- Pilih Kategori --</option>
+                        <option value="Akademik">Akademik</option>
+                        <option value="Lomba">Lomba</option>
+                        <option value="Workshop">Workshop</option>
+                        <option value="Organisasi">Organisasi</option>
+                        <option value="Pengabdian">Pengabdian</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal_kegiatan">Tanggal Pelaksanaan</label><br>
+                    <input class="input-form" type="date"
+                           id="tanggal_kegiatan" name="tanggal_kegiatan"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label for="lokasi_kegiatan">Lokasi Kegiatan</label><br>
+                    <input class="input-form" type="text"
+                           id="lokasi_kegiatan" name="lokasi_kegiatan"
+                           maxlength="150" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="deskripsi_kegiatan">Deskripsi Kegiatan</label><br>
+                    <textarea class="input-form" id="deskripsi_kegiatan"
+                              name="deskripsi_kegiatan" maxlength="500"
+                              required></textarea>
+                </div>
+
+                <button type="submit">Kirim</button>
+                <button type="reset">Batal</button>
+                <p class="form-feedback" data-form-feedback
+                   aria-live="polite"></p>
+            </form>
+        </section>  
+
         <section id="contact">
             <h2>Kontak</h2>
             <?php if ($pesanKesalahan !== ''): ?>
