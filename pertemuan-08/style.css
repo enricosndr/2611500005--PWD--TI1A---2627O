@@ -228,6 +228,29 @@ section {
   cursor: pointer;
 }
 
+
+#rencana-kegiatan .activity-table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+#rencana-kegiatan table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+
+#rencana-kegiatan th,
+#rencana-kegiatan td {
+  border: 1px solid #cbd5e1;
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+
+#rencana-kegiatan th {
+  background-color: #e2e8f0;
+}
 .form-feedback-error {
   color: #c62828;
 }

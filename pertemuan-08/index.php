@@ -156,6 +156,50 @@ if ($isRencanaKegiatanPost) {
         $pesanKesalahanKegiatan .= 'Deskripsi kegiatan maksimal 500 karakter. ';
     }
 }
+if ($isRencanaKegiatanPost) {
+    $dataRencanaKegiatan = [
+        'nama_kegiatan' => $namaKegiatan,
+        'kategori_kegiatan' => $kategoriKegiatan,
+        'tanggal_kegiatan' => $tanggalKegiatan,
+        'lokasi_kegiatan' => $lokasiKegiatan,
+        'deskripsi_kegiatan' => $deskripsiKegiatan
+    ];
+
+    if ($pesanKesalahanKegiatan === '') {
+        if (!isset($_SESSION['rencanaKegiatan']) || !is_array($_SESSION['rencanaKegiatan'])) {
+            $_SESSION['rencanaKegiatan'] = [];
+        }
+
+        $_SESSION['rencanaKegiatan'][] = $dataRencanaKegiatan;
+        $_SESSION['pesanSuksesKegiatan'] = 'Rencana kegiatan berhasil ditambahkan.';
+        unset($_SESSION['inputRencanaKegiatan'], $_SESSION['pesanKesalahanKegiatan']);
+    } else {
+        $_SESSION['inputRencanaKegiatan'] = $dataRencanaKegiatan;
+        $_SESSION['pesanKesalahanKegiatan'] = $pesanKesalahanKegiatan;
+        unset($_SESSION['pesanSuksesKegiatan']);
+    }
+
+    header('Location: index.php#rencana-kegiatan');
+    exit;
+}
+
+$pesanKesalahanKegiatan = $_SESSION['pesanKesalahanKegiatan'] ?? '';
+$pesanSuksesKegiatan = $_SESSION['pesanSuksesKegiatan'] ?? '';
+$inputRencanaKegiatan = $_SESSION['inputRencanaKegiatan'] ?? [];
+$rencanaKegiatan = $_SESSION['rencanaKegiatan'] ?? [];
+
+if (!is_array($inputRencanaKegiatan)) {
+    $inputRencanaKegiatan = [];
+}
+if (!is_array($rencanaKegiatan)) {
+    $rencanaKegiatan = [];
+}
+
+unset(
+    $_SESSION['pesanKesalahanKegiatan'],
+    $_SESSION['pesanSuksesKegiatan'],
+    $_SESSION['inputRencanaKegiatan']
+);
 // P6: PHP dasar dan pemrograman sisi peladen
 // Bagian 1: Variabel dan konstanta
 $nim = "2611500005";
@@ -324,9 +368,14 @@ $pesan = $_SESSION['pesan'] ?? '';
                      <section id="rencana-kegiatan">
             <h2>Rencana Kegiatan Mahasiswa</h2>
 
-            <?php if ($isRencanaKegiatanPost && $pesanKesalahanKegiatan !== ''): ?>
+            <?php if (strlen($pesanKesalahanKegiatan) > 0): ?>
                 <p class="form-feedback-error">
                     <?= htmlspecialchars($pesanKesalahanKegiatan, ENT_QUOTES, 'UTF-8') ?>
+                </p>
+            <?php endif; ?>
+            <?php if ($pesanSuksesKegiatan !== ''): ?>
+                <p class="form-feedback-success">
+                    <?= htmlspecialchars($pesanSuksesKegiatan, ENT_QUOTES, 'UTF-8') ?>
                 </p>
             <?php endif; ?>
             <form id="activityForm"
@@ -340,7 +389,9 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <label for="nama_kegiatan">Nama Kegiatan</label><br>
                     <input class="input-form" type="text"
                            id="nama_kegiatan" name="nama_kegiatan"
-                           maxlength="100" required>
+                           maxlength="100"
+                           value="<?= htmlspecialchars($inputRencanaKegiatan['nama_kegiatan'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                           required>
                 </div>
 
                 <div class="form-group">
@@ -348,11 +399,11 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <select class="input-form" id="kategori_kegiatan"
                             name="kategori_kegiatan" required>
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="Akademik">Akademik</option>
-                        <option value="Lomba">Lomba</option>
-                        <option value="Workshop">Workshop</option>
-                        <option value="Organisasi">Organisasi</option>
-                        <option value="Pengabdian">Pengabdian</option>
+                        <option value="Akademik" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Akademik' ? 'selected' : '' ?>>Akademik</option>
+                        <option value="Lomba" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Lomba' ? 'selected' : '' ?>>Lomba</option>
+                        <option value="Workshop" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Workshop' ? 'selected' : '' ?>>Workshop</option>
+                        <option value="Organisasi" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Organisasi' ? 'selected' : '' ?>>Organisasi</option>
+                        <option value="Pengabdian" <?= ($inputRencanaKegiatan['kategori_kegiatan'] ?? '') === 'Pengabdian' ? 'selected' : '' ?>>Pengabdian</option>
                     </select>
                 </div>
 
@@ -360,6 +411,7 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <label for="tanggal_kegiatan">Tanggal Pelaksanaan</label><br>
                     <input class="input-form" type="date"
                            id="tanggal_kegiatan" name="tanggal_kegiatan"
+                           value="<?= htmlspecialchars($inputRencanaKegiatan['tanggal_kegiatan'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
                            required>
                 </div>
 
@@ -367,14 +419,16 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <label for="lokasi_kegiatan">Lokasi Kegiatan</label><br>
                     <input class="input-form" type="text"
                            id="lokasi_kegiatan" name="lokasi_kegiatan"
-                           maxlength="150" required>
+                           maxlength="150"
+                           value="<?= htmlspecialchars($inputRencanaKegiatan['lokasi_kegiatan'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                           required>
                 </div>
 
                 <div class="form-group">
                     <label for="deskripsi_kegiatan">Deskripsi Kegiatan</label><br>
                     <textarea class="input-form" id="deskripsi_kegiatan"
                               name="deskripsi_kegiatan" maxlength="500"
-                              required></textarea>
+                              required><?= htmlspecialchars($inputRencanaKegiatan['deskripsi_kegiatan'] ?? '', ENT_QUOTES, 'UTF-8') ?></textarea>
                 </div>
 
                 <button type="submit">Kirim</button>
@@ -382,6 +436,34 @@ $pesan = $_SESSION['pesan'] ?? '';
                 <p class="form-feedback" data-form-feedback
                    aria-live="polite"></p>
             </form>
+            <?php if (count($rencanaKegiatan) > 0): ?>
+                <div class="activity-table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama Kegiatan</th>
+                                <th>Kategori</th>
+                                <th>Tanggal</th>
+                                <th>Lokasi</th>
+                                <th>Deskripsi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rencanaKegiatan as $nomor => $kegiatan): ?>
+                                <tr>
+                                    <td><?= $nomor + 1 ?></td>
+                                    <td><?= htmlspecialchars((string) ($kegiatan['nama_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars((string) ($kegiatan['kategori_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars((string) ($kegiatan['tanggal_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars((string) ($kegiatan['lokasi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= nl2br(htmlspecialchars((string) ($kegiatan['deskripsi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8')) ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
         </section>  
 
         <section id="contact">
