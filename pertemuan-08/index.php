@@ -24,6 +24,7 @@ $kategoriKegiatan = normalizeFormText($_POST['kategori_kegiatan'] ?? '');
 $tanggalKegiatan = normalizeFormText($_POST['tanggal_kegiatan'] ?? '');
 $lokasiKegiatan = normalizeFormText($_POST['lokasi_kegiatan'] ?? '');
 $deskripsiKegiatan = normalizeFormText($_POST['deskripsi_kegiatan'] ?? '');
+$statusKegiatan = normalizeFormText($_POST['status_kegiatan'] ?? '');
 $pesanKesalahanKegiatan = '';
 
 
@@ -122,6 +123,17 @@ if ($isRencanaKegiatanPost) {
         $pesanKesalahanKegiatan .= 'Kategori kegiatan tidak valid. ';
     }
 
+    $statusDiizinkan = [
+        'Direncanakan',
+        'Dalam Persiapan',
+        'Selesai'
+    ];
+
+    if ($statusKegiatan === '') {
+        $pesanKesalahanKegiatan .= 'Status kegiatan wajib dipilih. ';
+    } elseif (!in_array($statusKegiatan, $statusDiizinkan, true)) {
+        $pesanKesalahanKegiatan .= 'Status kegiatan tidak valid. ';
+    }
     if ($tanggalKegiatan === '') {
         $pesanKesalahanKegiatan .= 'Tanggal pelaksanaan wajib diisi. ';
     } else {
@@ -160,6 +172,7 @@ if ($isRencanaKegiatanPost) {
     $dataRencanaKegiatan = [
         'nama_kegiatan' => $namaKegiatan,
         'kategori_kegiatan' => $kategoriKegiatan,
+        'status_kegiatan' => $statusKegiatan,
         'tanggal_kegiatan' => $tanggalKegiatan,
         'lokasi_kegiatan' => $lokasiKegiatan,
         'deskripsi_kegiatan' => $deskripsiKegiatan
@@ -408,6 +421,16 @@ $pesan = $_SESSION['pesan'] ?? '';
                 </div>
 
                 <div class="form-group">
+                    <label for="status_kegiatan">Status Kegiatan</label><br>
+                    <select class="input-form" id="status_kegiatan"
+                            name="status_kegiatan" required>
+                        <option value="">-- Pilih Status --</option>
+                        <option value="Direncanakan" <?= ($inputRencanaKegiatan['status_kegiatan'] ?? '') === 'Direncanakan' ? 'selected' : '' ?>>Direncanakan</option>
+                        <option value="Dalam Persiapan" <?= ($inputRencanaKegiatan['status_kegiatan'] ?? '') === 'Dalam Persiapan' ? 'selected' : '' ?>>Dalam Persiapan</option>
+                        <option value="Selesai" <?= ($inputRencanaKegiatan['status_kegiatan'] ?? '') === 'Selesai' ? 'selected' : '' ?>>Selesai</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="tanggal_kegiatan">Tanggal Pelaksanaan</label><br>
                     <input class="input-form" type="date"
                            id="tanggal_kegiatan" name="tanggal_kegiatan"
@@ -444,6 +467,7 @@ $pesan = $_SESSION['pesan'] ?? '';
                                 <th>No.</th>
                                 <th>Nama Kegiatan</th>
                                 <th>Kategori</th>
+                                <th>Status</th>
                                 <th>Tanggal</th>
                                 <th>Lokasi</th>
                                 <th>Deskripsi</th>
@@ -455,6 +479,7 @@ $pesan = $_SESSION['pesan'] ?? '';
                                     <td><?= $nomor + 1 ?></td>
                                     <td><?= htmlspecialchars((string) ($kegiatan['nama_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= htmlspecialchars((string) ($kegiatan['kategori_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
+                                    <td><?= htmlspecialchars((string) ($kegiatan['status_kegiatan'] ?? 'Belum ditentukan'), ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= htmlspecialchars((string) ($kegiatan['tanggal_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= htmlspecialchars((string) ($kegiatan['lokasi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
                                     <td><?= nl2br(htmlspecialchars((string) ($kegiatan['deskripsi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8')) ?></td>

@@ -22,6 +22,7 @@
 - Menambahkan PRG berbasis session dan menampilkan data kegiatan dalam tabel.
 - Memperbaiki selector checkbox dan pengiriman formulir Kontak setelah validasi.
 - Mempertahankan pemrosesan parameter GET pada indexGet.php dengan escaping keluaran.
+- Menambahkan status kegiatan dan menampilkannya pada tabel.
 
 ## Pemeriksaan
 

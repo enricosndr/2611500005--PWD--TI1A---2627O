@@ -127,6 +127,7 @@ if (activityForm) {
 
     const nama = ambilNilai("nama_kegiatan");
     const kategori = ambilNilai("kategori_kegiatan");
+    const status = ambilNilai("status_kegiatan");
     const tanggal = ambilNilai("tanggal_kegiatan");
     const lokasi = ambilNilai("lokasi_kegiatan");
     const deskripsi = ambilNilai("deskripsi_kegiatan");
@@ -139,6 +140,8 @@ if (activityForm) {
       kesalahan = "Nama kegiatan maksimal 100 karakter.";
     } else if (kategori === "") {
       kesalahan = "Pilih kategori kegiatan.";
+    } else if (status === "") {
+      kesalahan = "Pilih status kegiatan.";
     } else if (tanggal === "") {
       kesalahan = "Tanggal pelaksanaan wajib diisi.";
     } else if (lokasi === "") {
