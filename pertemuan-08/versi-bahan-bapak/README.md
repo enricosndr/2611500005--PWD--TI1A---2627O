@@ -14,7 +14,7 @@
 ## Progres
 
 - Menggunakan bahan-pertemuan-08.zip sebagai baseline P8.
-- Menyesuaikan profil mahasiswa dan foto dengan identitas Enrico Sandra.
+- Mempertahankan nama, NIM, program studi, profil GitHub, dan foto dari bahan ZIP.
 - Menambahkan menu Rencana Kegiatan yang mengarah ke section baru.
 
 ## Pemeriksaan
