@@ -15,7 +15,8 @@
 
 - Menggunakan bahan-pertemuan-08.zip sebagai baseline P8.
 - Menyesuaikan profil mahasiswa dan foto dengan identitas Enrico Sandra.
+- Menambahkan menu Rencana Kegiatan yang mengarah ke section baru.
 
 ## Pemeriksaan
 
-- Baseline ZIP dipertahankan; fitur P8 belum ditambahkan.
+- Menu Rencana Kegiatan sudah ditambahkan; formulir dan pemrosesannya menyusul.
