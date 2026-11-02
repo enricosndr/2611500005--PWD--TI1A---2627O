@@ -1,10 +1,28 @@
 <?php
-// P7: penggunaan GET
-if (isset($_GET['nama']) && is_string($_GET['nama'])) {
-    $namaGet = trim($_GET['nama']);
-    echo "Nama yang diterima: " . htmlspecialchars($namaGet, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-}
+// P7: menerima dan menampilkan parameter GET dengan aman.
+$labelGet = [
+    'nama' => 'Nama',
+    'email' => 'Email',
+    'semester' => 'Semester',
+    'tanggal' => 'Tanggal',
+    'jenis_pesan' => 'Jenis pesan',
+    'prodi' => 'Program studi',
+    'pesan' => 'Pesan'
+];
 
+foreach ($labelGet as $key => $label) {
+    $nilaiGet = $_GET[$key] ?? null;
+
+    if (is_scalar($nilaiGet)) {
+        $nilaiGet = trim((string) $nilaiGet);
+
+        echo '<p><strong>'
+            . htmlspecialchars($label, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')
+            . ':</strong> '
+            . nl2br(htmlspecialchars($nilaiGet, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'))
+            . '</p>';
+    }
+}
 // P6: PHP dasar dan pemrograman sisi peladen
 // Bagian 1: Variabel dan konstanta
 $nim = "2611500005";

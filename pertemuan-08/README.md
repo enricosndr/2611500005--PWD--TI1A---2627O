@@ -21,6 +21,7 @@
 - Menambahkan pemisahan POST Kontak dan Rencana Kegiatan serta validasi sisi PHP.
 - Menambahkan PRG berbasis session dan menampilkan data kegiatan dalam tabel.
 - Memperbaiki selector checkbox dan pengiriman formulir Kontak setelah validasi.
+- Mempertahankan pemrosesan parameter GET pada indexGet.php dengan escaping keluaran.
 
 ## Pemeriksaan
 
