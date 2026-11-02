@@ -30,4 +30,5 @@
 - Validasi PHP menolak POST yang belum lengkap dan mempertahankan input.
 - POST valid menampilkan data di tabel; refresh tidak menggandakan baris.
 - Data HTML ditampilkan sebagai teks biasa.
+- `indexGet.php` menampilkan parameter GET yang dikirim dan mengamankan keluarannya.
 - Formulir Kontak tetap berfungsi.
