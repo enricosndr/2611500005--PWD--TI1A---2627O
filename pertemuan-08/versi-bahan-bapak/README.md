@@ -1,6 +1,21 @@
-pada p7, saya melakukan:
+# P8 - Rencana Kegiatan Mahasiswa
 
-1. menyalin artefak P6 untuk menjadi baseline P7
-2. menguji fitur pada P7, hasilnya jalan seperti P6.
-3. meremark event.preventDefault(); pada script.js dan mencoba superglobal $\_GET untuk menangkap nilai yang diisikan pada formulir.
-4. mencoba method post. hasilnya parameter tidak ditampilkan pada url, tetapi menggunakan echo superglobal $\_POST untuk menampilkan nilai dari input form.
+- Nama: Enrico Sandra
+- NIM: 2611500005
+- Kelompok: TI1A
+- Tahun ajaran: 2026/2027 Gasal
+
+## Menjalankan
+
+- Laragon tidak digunakan karena masa uji coba gratisnya sudah berakhir.
+- Dari folder versi-bahan-bapak, jalankan php -S 127.0.0.1:8000.
+- Buka http://127.0.0.1:8000/.
+
+## Progres
+
+- Menggunakan bahan-pertemuan-08.zip sebagai baseline P8.
+- Menyesuaikan profil mahasiswa dan foto dengan identitas Enrico Sandra.
+
+## Pemeriksaan
+
+- Baseline ZIP dipertahankan; fitur P8 belum ditambahkan.
