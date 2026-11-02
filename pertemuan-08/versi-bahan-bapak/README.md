@@ -17,7 +17,9 @@
 - Mempertahankan nama, NIM, program studi, profil GitHub, dan foto dari bahan ZIP.
 - Menambahkan menu Rencana Kegiatan yang mengarah ke section baru.
 - Menambahkan formulir kegiatan dengan lima kolom dan tombol Kirim serta Batal.
+- Menempatkan formulir di section Rencana Kegiatan dan menyesuaikan tampilannya.
 
 ## Pemeriksaan
 
 - Menu dan formulir Rencana Kegiatan sudah ditambahkan.
+- Section Rencana Kegiatan sudah dibuat terpisah dari section Kontak.

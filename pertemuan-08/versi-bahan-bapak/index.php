@@ -175,7 +175,10 @@ switch ($programStudi) {
 			</article>
 		</section>
 
-		        <form id="activityForm"
+		<section id="rencana-kegiatan">
+			<h2>Rencana Kegiatan Mahasiswa</h2>
+
+			<form id="activityForm"
               data-validation="activity"
               action="index.php#rencana-kegiatan"
               method="post"
@@ -225,7 +228,8 @@ switch ($programStudi) {
             <button type="submit">Kirim</button>
             <button type="reset">Batal</button>
             <p class="form-feedback" data-form-feedback aria-live="polite"></p>
-        </form>
+			</form>
+		</section>
         <section id="contact">
 			<h2>Kontak</h2>
 
