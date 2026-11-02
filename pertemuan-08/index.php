@@ -15,12 +15,22 @@ $jenisPesan = normalizeFormText($_POST['jenis_pesan'] ?? '');
 $prodi = normalizeFormText($_POST['prodi'] ?? '');
 $pesan = normalizeFormText($_POST['pesan'] ?? '');
 $minat = $_POST['minat'] ?? [];
+$formType = $_POST['form_type'] ?? '';
+$isRencanaKegiatanPost = $_SERVER['REQUEST_METHOD'] === 'POST'
+    && $formType === 'rencana_kegiatan';
+
+$namaKegiatan = normalizeFormText($_POST['nama_kegiatan'] ?? '');
+$kategoriKegiatan = normalizeFormText($_POST['kategori_kegiatan'] ?? '');
+$tanggalKegiatan = normalizeFormText($_POST['tanggal_kegiatan'] ?? '');
+$lokasiKegiatan = normalizeFormText($_POST['lokasi_kegiatan'] ?? '');
+$deskripsiKegiatan = normalizeFormText($_POST['deskripsi_kegiatan'] ?? '');
+$pesanKesalahanKegiatan = '';
 
 
 
 $pesanKesalahan = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isRencanaKegiatanPost) {
     if (trim($nama ?? '') === '') {
         $pesanKesalahan .= 'Nama lengkap wajib diisi. ';
     }
@@ -91,6 +101,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+if ($isRencanaKegiatanPost) {
+    if ($namaKegiatan === '') {
+        $pesanKesalahanKegiatan .= 'Nama kegiatan wajib diisi. ';
+    } elseif (strlen($namaKegiatan) > 100) {
+        $pesanKesalahanKegiatan .= 'Nama kegiatan maksimal 100 karakter. ';
+    }
+
+    $kategoriDiizinkan = [
+        'Akademik',
+        'Lomba',
+        'Workshop',
+        'Organisasi',
+        'Pengabdian'
+    ];
+
+    if ($kategoriKegiatan === '') {
+        $pesanKesalahanKegiatan .= 'Kategori kegiatan wajib dipilih. ';
+    } elseif (!in_array($kategoriKegiatan, $kategoriDiizinkan, true)) {
+        $pesanKesalahanKegiatan .= 'Kategori kegiatan tidak valid. ';
+    }
+
+    if ($tanggalKegiatan === '') {
+        $pesanKesalahanKegiatan .= 'Tanggal pelaksanaan wajib diisi. ';
+    } else {
+        $bagianTanggal = explode('-', $tanggalKegiatan);
+        $tanggalValid = preg_match(
+            '/^\d{4}-\d{2}-\d{2}$/',
+            $tanggalKegiatan
+        ) === 1;
+
+        if ($tanggalValid) {
+            $tanggalValid = checkdate(
+                (int) $bagianTanggal[1],
+                (int) $bagianTanggal[2],
+                (int) $bagianTanggal[0]
+            );
+        }
+
+        if (!$tanggalValid) {
+            $pesanKesalahanKegiatan .= 'Tanggal pelaksanaan tidak valid. ';
+        }
+    }
+
+    if ($lokasiKegiatan === '') {
+        $pesanKesalahanKegiatan .= 'Lokasi kegiatan wajib diisi. ';
+    } elseif (strlen($lokasiKegiatan) > 150) {
+        $pesanKesalahanKegiatan .= 'Lokasi kegiatan maksimal 150 karakter. ';
+    }
+
+    if ($deskripsiKegiatan === '') {
+        $pesanKesalahanKegiatan .= 'Deskripsi kegiatan wajib diisi. ';
+    } elseif (strlen($deskripsiKegiatan) > 500) {
+        $pesanKesalahanKegiatan .= 'Deskripsi kegiatan maksimal 500 karakter. ';
+    }
+}
 // P6: PHP dasar dan pemrograman sisi peladen
 // Bagian 1: Variabel dan konstanta
 $nim = "2611500005";
@@ -132,7 +197,7 @@ switch ($programStudi) {
     default:
         $fokusProgramStudi = "Belum ditentukan";
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$isRencanaKegiatanPost) {
     $_SESSION['pesanKesalahan'] = $pesanKesalahan;
 
     $_SESSION['nama'] = $nama;
@@ -259,11 +324,18 @@ $pesan = $_SESSION['pesan'] ?? '';
                      <section id="rencana-kegiatan">
             <h2>Rencana Kegiatan Mahasiswa</h2>
 
+            <?php if ($isRencanaKegiatanPost && $pesanKesalahanKegiatan !== ''): ?>
+                <p class="form-feedback-error">
+                    <?= htmlspecialchars($pesanKesalahanKegiatan, ENT_QUOTES, 'UTF-8') ?>
+                </p>
+            <?php endif; ?>
             <form id="activityForm"
                   data-validation="activity"
                   action="index.php#rencana-kegiatan"
                   method="post"
                   novalidate>
+                <input type="hidden" name="form_type" value="rencana_kegiatan">
+
                 <div class="form-group">
                     <label for="nama_kegiatan">Nama Kegiatan</label><br>
                     <input class="input-form" type="text"
