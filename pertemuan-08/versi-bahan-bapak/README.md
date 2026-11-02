@@ -16,7 +16,8 @@
 - Menggunakan bahan-pertemuan-08.zip sebagai baseline P8.
 - Mempertahankan nama, NIM, program studi, profil GitHub, dan foto dari bahan ZIP.
 - Menambahkan menu Rencana Kegiatan yang mengarah ke section baru.
+- Menambahkan formulir kegiatan dengan lima kolom dan tombol Kirim serta Batal.
 
 ## Pemeriksaan
 
-- Menu Rencana Kegiatan sudah ditambahkan; formulir dan pemrosesannya menyusul.
+- Menu dan formulir Rencana Kegiatan sudah ditambahkan.
