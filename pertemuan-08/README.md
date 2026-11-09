@@ -7,30 +7,34 @@
 
 ## Menjalankan
 
-- Laragon tidak digunakan karena masa uji coba gratisnya sudah berakhir.
-- Dari folder `pertemuan-08`, jalankan `php -S 127.0.0.1:8000`.
-- Buka `http://127.0.0.1:8000/`.
+Dari folder `pertemuan-08`, jalankan:
 
-## Progres
+```sh
+php -S 127.0.0.1:8000
+```
 
-- Menyalin baseline P7 ke folder `pertemuan-08`.
-- Menambahkan menu **Rencana Kegiatan**.
-- Menambahkan section dan formulir dengan input nama, kategori, tanggal, lokasi, dan deskripsi.
-- Menambahkan CSS untuk section dan formulir.
-- Menambahkan validasi JavaScript untuk kolom formulir.
-- Menambahkan pemisahan POST Kontak dan Rencana Kegiatan serta validasi sisi PHP.
-- Menambahkan PRG berbasis session dan menampilkan data kegiatan dalam tabel.
-- Memperbaiki selector checkbox dan pengiriman formulir Kontak setelah validasi.
-- Mempertahankan pemrosesan parameter GET pada indexGet.php dengan escaping keluaran.
-- Menambahkan status kegiatan dan menampilkannya pada tabel.
+Buka `http://127.0.0.1:8000/` di browser.
 
-## Pemeriksaan
+## Implementasi
 
-- Menu Rencana Kegiatan membuka section yang benar.
-- Validasi JavaScript menolak isian yang belum lengkap.
-- Validasi PHP menolak POST yang belum lengkap dan mempertahankan input.
-- POST valid menampilkan data di tabel; refresh tidak menggandakan baris.
-- Data HTML ditampilkan sebagai teks biasa.
-- `indexGet.php` menampilkan parameter GET yang dikirim dan mengamankan keluarannya.
-- Formulir Kontak tetap berfungsi.
-- Status kegiatan tersimpan dan tampil sesuai pilihan pada tabel.
+- Secara bertahap menambahkan menu **Rencana Kegiatan**, section, formulir, validasi JavaScript, validasi PHP, dan penyimpanan session dengan PRG serta tabel hasil.
+- Formulir menyediakan lima kolom yang diminta soal (nama, kategori, tanggal, lokasi, deskripsi), ditambah status kegiatan agar pemeriksaan status yang sebelumnya ada di JavaScript juga memiliki input.
+- POST Rencana Kegiatan dan Kontak dipisahkan dengan hidden input `form_type`.
+- Validasi sisi klien dan peladen memeriksa kolom wajib, pilihan kategori/status, batas panjang teks, dan tanggal kalender yang valid.
+- Jika validasi peladen gagal, pesan kesalahan ditampilkan dan masukan tetap terisi; data hanya disimpan jika lolos validasi.
+- Teks dinormalisasi dengan `trim()` dan keluaran kegiatan di-escape dengan `htmlspecialchars()`.
+- Formulir Kontak dan pemrosesan parameter GET di `indexGet.php` tetap dipertahankan.
+
+## Hasil pemeriksaan
+
+- Lolos `php -l index.php`, `php -l indexGet.php`, dan `node --check script.js`.
+- POST kegiatan valid mengikuti redirect PRG, menyimpan data, dan menampilkannya kembali pada tabel.
+- Tanggal kalender tidak valid serta kategori di luar pilihan ditolak PHP; isian draf dipertahankan dan tidak dibuat menjadi data baru.
+- Refresh setelah POST valid tidak menambah duplikat kegiatan.
+- Teks HTML pada data kegiatan ditampilkan sebagai teks biasa.
+- POST Kontak tetap diproses dan hasilnya ditampilkan.
+- Tautan navigasi menuju section yang benar, dan section Rencana Kegiatan berada sebelum Kontak.
+- Parameter GET pada `indexGet.php` tetap ditampilkan dengan escaping HTML.
+- Validasi JavaScript menerima isian lengkap dan menolak status kosong serta tanggal kalender tidak valid.
+
+Data kegiatan disimpan pada session browser dan akan hilang ketika session dihapus atau kedaluwarsa. Sebelum pengumpulan, ulangi pemeriksaan melalui browser setelah menjalankan server lokal.

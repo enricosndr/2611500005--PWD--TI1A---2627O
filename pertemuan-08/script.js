@@ -112,6 +112,20 @@ if (activityForm) {
   const ambilNilai = (nama) =>
     activityForm.elements.namedItem(nama).value.trim();
 
+  const tanggalValid = (tanggal) => {
+    const cocok = /^(\d{4})-(\d{2})-(\d{2})$/.exec(tanggal);
+    if (!cocok) return false;
+
+    const [, tahun, bulan, hari] = cocok.map(Number);
+    const tanggalTerurai = new Date(tahun, bulan - 1, hari);
+
+    return (
+      tanggalTerurai.getFullYear() === tahun &&
+      tanggalTerurai.getMonth() === bulan - 1 &&
+      tanggalTerurai.getDate() === hari
+    );
+  };
+
   const tampilkanFeedback = (pesan, kelas) => {
     activityFeedback.textContent = pesan;
     activityFeedback.className = kelas;
@@ -138,12 +152,18 @@ if (activityForm) {
       kesalahan = "Nama kegiatan wajib diisi.";
     } else if (nama.length > 100) {
       kesalahan = "Nama kegiatan maksimal 100 karakter.";
-    } else if (kategori === "") {
+    } else if (
+      !["Akademik", "Lomba", "Workshop", "Organisasi", "Pengabdian"].includes(
+        kategori,
+      )
+    ) {
       kesalahan = "Pilih kategori kegiatan.";
-    } else if (status === "") {
+    } else if (
+      !["Belum Dimulai", "Sedang Berjalan", "Selesai"].includes(status)
+    ) {
       kesalahan = "Pilih status kegiatan.";
-    } else if (tanggal === "") {
-      kesalahan = "Tanggal pelaksanaan wajib diisi.";
+    } else if (!tanggalValid(tanggal)) {
+      kesalahan = "Tanggal pelaksanaan tidak valid.";
     } else if (lokasi === "") {
       kesalahan = "Lokasi kegiatan wajib diisi.";
     } else if (lokasi.length > 150) {
