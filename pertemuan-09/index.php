@@ -2,12 +2,6 @@
 session_start();
 include "fungsi.php";
 
-// Demo sementara untuk melihat hasil teks sebelum dan sesudah dibersihkan.
-echo "<p>hai</p>";
-echo "<script>alert('hai');</script>";
-echo bersihkan("<p>hai</p>");
-echo bersihkan("<script>alert('hai');</script>");
-
 function normalizeFormText($value): string
 {
     return is_scalar($value) ? trim((string) $value) : '';
@@ -361,7 +355,7 @@ $pesan = $_SESSION['pesan'] ?? '';
 
             <?php if ($rencanaKegiatanError !== ''): ?>
                 <p class="form-feedback-error">
-                    <?= htmlspecialchars($rencanaKegiatanError, ENT_QUOTES, 'UTF-8') ?>
+                    <?= bersihkan($rencanaKegiatanError) ?>
                 </p>
             <?php endif; ?>
 
@@ -376,7 +370,7 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <input class="input-form" type="text"
                            id="nama_kegiatan" name="nama_kegiatan"
                            maxlength="100" required
-                           value="<?= htmlspecialchars((string) ($rencanaKegiatanInput['nama_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
+                           value="<?= bersihkan((string) ($rencanaKegiatanInput['nama_kegiatan'] ?? '')) ?>">
                 </div>
 
                 <div class="form-group">
@@ -407,7 +401,7 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <label for="tanggal_kegiatan">Tanggal Pelaksanaan</label><br>
                     <input class="input-form" type="date"
                            id="tanggal_kegiatan" name="tanggal_kegiatan"
-                           required value="<?= htmlspecialchars((string) ($rencanaKegiatanInput['tanggal_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
+                           required value="<?= bersihkan((string) ($rencanaKegiatanInput['tanggal_kegiatan'] ?? '')) ?>">
                 </div>
 
                 <div class="form-group">
@@ -415,14 +409,14 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <input class="input-form" type="text"
                            id="lokasi_kegiatan" name="lokasi_kegiatan"
                            maxlength="150" required
-                           value="<?= htmlspecialchars((string) ($rencanaKegiatanInput['lokasi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?>">
+                           value="<?= bersihkan((string) ($rencanaKegiatanInput['lokasi_kegiatan'] ?? '')) ?>">
                 </div>
 
                 <div class="form-group">
                     <label for="deskripsi_kegiatan">Deskripsi Kegiatan</label><br>
                     <textarea class="input-form" id="deskripsi_kegiatan"
                               name="deskripsi_kegiatan" maxlength="500"
-                              required><?= htmlspecialchars((string) ($rencanaKegiatanInput['deskripsi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></textarea>
+                              required><?= bersihkan((string) ($rencanaKegiatanInput['deskripsi_kegiatan'] ?? '')) ?></textarea>
                 </div>
 
                 <button type="submit">Kirim</button>
@@ -447,12 +441,12 @@ $pesan = $_SESSION['pesan'] ?? '';
                     <tbody>
                         <?php foreach ($rencanaKegiatanData as $kegiatan): ?>
                             <tr>
-                                <td><?= htmlspecialchars((string) ($kegiatan['nama_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                <td><?= htmlspecialchars((string) ($kegiatan['kategori_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                <td><?= htmlspecialchars((string) ($kegiatan['status_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                <td><?= htmlspecialchars((string) ($kegiatan['tanggal_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                <td><?= htmlspecialchars((string) ($kegiatan['lokasi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8') ?></td>
-                                <td><?= nl2br(htmlspecialchars((string) ($kegiatan['deskripsi_kegiatan'] ?? ''), ENT_QUOTES, 'UTF-8')) ?></td>
+                                <td><?= bersihkan((string) ($kegiatan['nama_kegiatan'] ?? '')) ?></td>
+                                <td><?= bersihkan((string) ($kegiatan['kategori_kegiatan'] ?? '')) ?></td>
+                                <td><?= bersihkan((string) ($kegiatan['status_kegiatan'] ?? '')) ?></td>
+                                <td><?= bersihkan((string) ($kegiatan['tanggal_kegiatan'] ?? '')) ?></td>
+                                <td><?= bersihkan((string) ($kegiatan['lokasi_kegiatan'] ?? '')) ?></td>
+                                <td><?= nl2br(bersihkan((string) ($kegiatan['deskripsi_kegiatan'] ?? ''))) ?></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -464,7 +458,7 @@ $pesan = $_SESSION['pesan'] ?? '';
             <h2>Kontak</h2>
             <?php if ($pesanKesalahan !== ''): ?>
                 <p class="form-feedback-error">
-                    <?= htmlspecialchars($pesanKesalahan, ENT_QUOTES, 'UTF-8') ?>
+                    <?= bersihkan($pesanKesalahan) ?>
                 </p>
                 <?php
                     unset($_SESSION['pesanKesalahan']);
@@ -488,7 +482,7 @@ $pesan = $_SESSION['pesan'] ?? '';
                         minlength="3"
                         maxlength="50"
                         required
-                        value="<?= htmlspecialchars((string) ($nama ?? ''), ENT_QUOTES, 'UTF-8') ?>"
+                        value="<?= bersihkan((string) ($nama ?? '')) ?>"
                     >
                 </div>
 
@@ -601,24 +595,24 @@ $pesan = $_SESSION['pesan'] ?? '';
 
             <?php if (!empty($nama)): ?>
                 <h3>Data yang Diterima Peladen</h3>
-                <p>Nama: <?= htmlspecialchars($nama, ENT_QUOTES, 'UTF-8') ?></p>
-                <p>Email: <?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?></p>
-                <p>Semester: <?= htmlspecialchars($semesterForm, ENT_QUOTES, 'UTF-8') ?></p>
-                <p>Tanggal kunjungan: <?= htmlspecialchars($tanggal, ENT_QUOTES, 'UTF-8') ?></p>
-                <p>Jenis pesan: <?= htmlspecialchars($jenisPesan, ENT_QUOTES, 'UTF-8') ?></p>
-                <p>Program studi: <?= htmlspecialchars($prodi, ENT_QUOTES, 'UTF-8') ?></p>
+                <p>Nama: <?= bersihkan($nama) ?></p>
+                <p>Email: <?= bersihkan($email) ?></p>
+                <p>Semester: <?= bersihkan($semesterForm) ?></p>
+                <p>Tanggal kunjungan: <?= bersihkan($tanggal) ?></p>
+                <p>Jenis pesan: <?= bersihkan($jenisPesan) ?></p>
+                <p>Program studi: <?= bersihkan($prodi) ?></p>
                 <p>Minat:</p>
                 <?php if (is_array($minat) && count($minat) > 0): ?>
                     <ul>
                         <?php foreach ($minat as $topik): ?>
-                            <li><?= htmlspecialchars((string) $topik, ENT_QUOTES, 'UTF-8') ?></li>
+                            <li><?= bersihkan((string) $topik) ?></li>
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>
                     <p>Tidak ada minat yang dipilih.</p>
                 <?php endif; ?>
                 <p>Pesan:</p>
-                <p><?= nl2br(htmlspecialchars($pesan, ENT_QUOTES, 'UTF-8')) ?></p>
+                <p><?= nl2br(bersihkan($pesan)) ?></p>
             <?php endif; ?>
         </section>
     </main>
