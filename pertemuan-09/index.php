@@ -446,7 +446,7 @@ $nama = $formData["nama"] ?? "";
                                         $nilaiRencana = nl2br($nilaiRencana);
                                     }
                                     ?>
-                                    <p><strong><?= bersihkan($label) ?>:</strong> <?= $nilaiRencana ?></p>
+                                    <p><?= tebal($label) ?>: <?= $nilaiRencana ?></p>
                                 <?php endforeach; ?>
                             </div>
                         <?php endif; ?>
@@ -625,7 +625,7 @@ $nama = $formData["nama"] ?? "";
                         $nilaiForm = nl2br($nilaiForm);
                     }
 
-                    echo '<p><strong>' . bersihkan($label) . ':</strong> ' . $nilaiForm . '</p>';
+                    echo '<p>' . tebal($label) . ': ' . $nilaiForm . '</p>';
                 }
                 ?>
             <?php endif; ?>
