@@ -1,6 +1,17 @@
 <?php
 session_start();
 
+function bersihkan($teks)
+{
+    return htmlspecialchars($teks ?? "", ENT_QUOTES, "UTF-8");
+}
+
+// Demo sementara untuk melihat hasil teks sebelum dan sesudah dibersihkan.
+echo "<p>hai</p>";
+echo "<script>alert('hai');</script>";
+echo bersihkan("<p>hai</p>");
+echo bersihkan("<script>alert('hai');</script>");
+
 function normalizeFormText($value): string
 {
     return is_scalar($value) ? trim((string) $value) : '';
