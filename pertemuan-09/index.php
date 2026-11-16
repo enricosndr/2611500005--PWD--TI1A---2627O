@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($pesanKesalahanKegiatan === '') {
-            $rencanaKegiatanData = $_SESSION['rencana_kegiatan'] ?? [];
+            $rencanaKegiatanData = $_SESSION["rencana"] ?? [];
             $rencanaKegiatanData[] = [
                 'nama_kegiatan' => $namaKegiatan,
                 'kategori_kegiatan' => $kategoriKegiatan,
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'lokasi_kegiatan' => $lokasiKegiatan,
                 'deskripsi_kegiatan' => $deskripsiKegiatan,
             ];
-            $_SESSION['rencana_kegiatan'] = $rencanaKegiatanData;
+            $_SESSION["rencana"] = $rencanaKegiatanData;
             unset($_SESSION['rencana_kegiatan_error'], $_SESSION['rencana_kegiatan_input']);
             header('Location: index.php#rencana-kegiatan');
             exit;
@@ -237,7 +237,19 @@ $rencanaKegiatanError = $_SESSION['rencana_kegiatan_error'] ?? '';
 unset($_SESSION['rencana_kegiatan_error']);
 $rencanaKegiatanInput = $_SESSION['rencana_kegiatan_input'] ?? [];
 unset($_SESSION['rencana_kegiatan_input']);
-$rencanaKegiatanData = $_SESSION['rencana_kegiatan'] ?? [];
+$rencanaKegiatanData = $_SESSION["rencana"] ?? [];
+if (!is_array($rencanaKegiatanData)) {
+    $rencanaKegiatanData = [];
+}
+
+$labelRencana = [
+    "nama_kegiatan" => "Nama Kegiatan",
+    "kategori_kegiatan" => "Kategori Kegiatan",
+    "status_kegiatan" => "Status Kegiatan",
+    "tanggal_kegiatan" => "Tanggal Pelaksanaan",
+    "lokasi_kegiatan" => "Lokasi Kegiatan",
+    "deskripsi_kegiatan" => "Deskripsi Kegiatan",
+];
 
 $formData = $_SESSION["form_data"] ?? [];
 if (!is_array($formData)) {
@@ -418,31 +430,28 @@ $nama = $formData["nama"] ?? "";
             </form>
 
             <?php if (!empty($rencanaKegiatanData)): ?>
-                <h3>Daftar Rencana Kegiatan</h3>
-                <table class="activity-table">
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Kategori</th>
-                            <th>Status</th>
-                            <th>Tanggal</th>
-                            <th>Lokasi</th>
-                            <th>Deskripsi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($rencanaKegiatanData as $kegiatan): ?>
-                            <tr>
-                                <td><?= bersihkan((string) ($kegiatan['nama_kegiatan'] ?? '')) ?></td>
-                                <td><?= bersihkan((string) ($kegiatan['kategori_kegiatan'] ?? '')) ?></td>
-                                <td><?= bersihkan((string) ($kegiatan['status_kegiatan'] ?? '')) ?></td>
-                                <td><?= bersihkan((string) ($kegiatan['tanggal_kegiatan'] ?? '')) ?></td>
-                                <td><?= bersihkan((string) ($kegiatan['lokasi_kegiatan'] ?? '')) ?></td>
-                                <td><?= nl2br(bersihkan((string) ($kegiatan['deskripsi_kegiatan'] ?? ''))) ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <article id="hasilRencana">
+                    <h3>Daftar Rencana Kegiatan</h3>
+                    <?php foreach ($rencanaKegiatanData as $kegiatan): ?>
+                        <?php if (is_array($kegiatan)): ?>
+                            <div class="activity-result-item">
+                                <?php foreach ($labelRencana as $kunci => $label): ?>
+                                    <?php
+                                    $nilaiRencana = $kegiatan[$kunci] ?? "";
+                                    $nilaiRencana = is_scalar($nilaiRencana)
+                                        ? bersihkan((string) $nilaiRencana)
+                                        : "";
+
+                                    if ($kunci === "deskripsi_kegiatan") {
+                                        $nilaiRencana = nl2br($nilaiRencana);
+                                    }
+                                    ?>
+                                    <p><strong><?= bersihkan($label) ?>:</strong> <?= $nilaiRencana ?></p>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </article>
             <?php endif; ?>
         </section>
 
