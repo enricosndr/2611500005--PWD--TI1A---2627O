@@ -251,6 +251,30 @@ section {
 #rencana-kegiatan th {
   background-color: #e2e8f0;
 }
+
+.submission-result {
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid #d0d7de;
+}
+
+.submission-result h3 {
+  color: #1f4e78;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.submission-result p {
+  line-height: 1.5;
+  margin: 6px 0;
+}
+
+.activity-result-item + .activity-result-item {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e6e6e6;
+}
 .form-feedback-error {
   color: #c62828;
 }

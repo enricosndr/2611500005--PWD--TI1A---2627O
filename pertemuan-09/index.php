@@ -438,7 +438,7 @@ $nama = $formData["nama"] ?? "";
             </form>
 
             <?php if (!empty($rencanaKegiatanData)): ?>
-                <article id="hasilRencana">
+                <article id="hasilRencana" class="submission-result" aria-live="polite">
                     <h3>Daftar Rencana Kegiatan</h3>
                     <?php foreach ($rencanaKegiatanData as $kegiatan): ?>
                         <?php if (is_array($kegiatan)): ?>
@@ -603,39 +603,41 @@ $nama = $formData["nama"] ?? "";
             </form>
 
             <?php if (!empty($nama)): ?>
-                <h3>Data yang Diterima Peladen</h3>
-                <?php
-                $labelForm = [
-                    "nama" => "Nama Lengkap",
-                    "email" => "Email",
-                    "semester" => "Semester",
-                    "tanggal" => "Tanggal Kunjungan",
-                    "jenis_pesan" => "Jenis Pesan",
-                    "minat" => "Minat",
-                    "prodi" => "Program Studi",
-                    "pesan" => "Pesan",
-                ];
+                <article id="hasilKontak" class="submission-result" aria-live="polite">
+                    <h3>Data yang Diterima Peladen</h3>
+                    <?php
+                    $labelForm = [
+                        "nama" => "Nama Lengkap",
+                        "email" => "Email",
+                        "semester" => "Semester",
+                        "tanggal" => "Tanggal Kunjungan",
+                        "jenis_pesan" => "Jenis Pesan",
+                        "minat" => "Minat",
+                        "prodi" => "Program Studi",
+                        "pesan" => "Pesan",
+                    ];
 
-                foreach ($labelForm as $kunci => $label) {
-                    $nilaiForm = $formData[$kunci] ?? "";
+                    foreach ($labelForm as $kunci => $label) {
+                        $nilaiForm = $formData[$kunci] ?? "";
 
-                    if ($kunci === "minat") {
-                        $nilaiForm = is_array($nilaiForm)
-                            ? implode(", ", array_map("strval", array_filter($nilaiForm, "is_scalar")))
+                        if ($kunci === "minat") {
+                            $nilaiForm = is_array($nilaiForm)
+                                ? implode(", ", array_map("strval", array_filter($nilaiForm, "is_scalar")))
+                                : "";
+                        }
+
+                        $nilaiForm = is_scalar($nilaiForm)
+                            ? bersihkan((string) $nilaiForm)
                             : "";
+
+                        if ($kunci === "pesan") {
+                            $nilaiForm = nl2br($nilaiForm);
+                        }
+
+                        echo '<p>' . tebal($label) . ': ' . $nilaiForm . '</p>';
                     }
-
-                    $nilaiForm = is_scalar($nilaiForm)
-                        ? bersihkan((string) $nilaiForm)
-                        : "";
-
-                    if ($kunci === "pesan") {
-                        $nilaiForm = nl2br($nilaiForm);
-                    }
-
-                    echo '<p>' . tebal($label) . ': ' . $nilaiForm . '</p>';
-                }
-                ?>
+                    ?>
+                </article>
             <?php endif; ?>
         </section>
     </main>
