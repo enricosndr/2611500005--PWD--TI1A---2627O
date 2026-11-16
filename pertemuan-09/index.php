@@ -167,29 +167,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    $_SESSION["form_data"] = [
+        "nama" => $nama,
+        "email" => $email,
+        "semester" => $semesterForm,
+        "tanggal" => $tanggal,
+        "jenis_pesan" => $jenisPesan,
+        "minat" => is_array($minat) ? array_filter($minat, 'is_scalar') : [],
+        "prodi" => $prodi,
+        "pesan" => $pesan,
+    ];
+
     if ($pesanKesalahan === '') {
         $_SESSION['pesanKesalahan'] = '';
-        $_SESSION['nama'] = $nama;
-        $_SESSION['email'] = $email;
-        $_SESSION['semester'] = $semesterForm;
-        $_SESSION['tanggal'] = $tanggal;
-        $_SESSION['jenis_pesan'] = $jenisPesan;
-        $_SESSION['prodi'] = $prodi;
-        $_SESSION['minat'] = $minat;
-        $_SESSION['pesan'] = $pesan;
         header('Location: index.php#contact');
         exit;
     }
 
     $_SESSION['pesanKesalahan'] = $pesanKesalahan;
-    $_SESSION['nama'] = $nama;
-    $_SESSION['email'] = $email;
-    $_SESSION['semester'] = $semesterForm;
-    $_SESSION['tanggal'] = $tanggal;
-    $_SESSION['jenis_pesan'] = $jenisPesan;
-    $_SESSION['prodi'] = $prodi;
-    $_SESSION['minat'] = $minat;
-    $_SESSION['pesan'] = $pesan;
     header('Location: index.php#contact');
     exit;
 }
@@ -244,14 +239,11 @@ $rencanaKegiatanInput = $_SESSION['rencana_kegiatan_input'] ?? [];
 unset($_SESSION['rencana_kegiatan_input']);
 $rencanaKegiatanData = $_SESSION['rencana_kegiatan'] ?? [];
 
-$nama = $_SESSION['nama'] ?? '';
-$email = $_SESSION['email'] ?? '';
-$semesterForm = $_SESSION['semester'] ?? '';
-$tanggal = $_SESSION['tanggal'] ?? date("Y-m-d");
-$jenisPesan = $_SESSION['jenis_pesan'] ?? '';
-$prodi = $_SESSION['prodi'] ?? '';
-$minat = $_SESSION['minat'] ?? '';
-$pesan = $_SESSION['pesan'] ?? '';
+$formData = $_SESSION["form_data"] ?? [];
+if (!is_array($formData)) {
+    $formData = [];
+}
+$nama = $formData["nama"] ?? "";
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -595,24 +587,38 @@ $pesan = $_SESSION['pesan'] ?? '';
 
             <?php if (!empty($nama)): ?>
                 <h3>Data yang Diterima Peladen</h3>
-                <p>Nama: <?= bersihkan($nama) ?></p>
-                <p>Email: <?= bersihkan($email) ?></p>
-                <p>Semester: <?= bersihkan($semesterForm) ?></p>
-                <p>Tanggal kunjungan: <?= bersihkan($tanggal) ?></p>
-                <p>Jenis pesan: <?= bersihkan($jenisPesan) ?></p>
-                <p>Program studi: <?= bersihkan($prodi) ?></p>
-                <p>Minat:</p>
-                <?php if (is_array($minat) && count($minat) > 0): ?>
-                    <ul>
-                        <?php foreach ($minat as $topik): ?>
-                            <li><?= bersihkan((string) $topik) ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <p>Tidak ada minat yang dipilih.</p>
-                <?php endif; ?>
-                <p>Pesan:</p>
-                <p><?= nl2br(bersihkan($pesan)) ?></p>
+                <?php
+                $labelForm = [
+                    "nama" => "Nama Lengkap",
+                    "email" => "Email",
+                    "semester" => "Semester",
+                    "tanggal" => "Tanggal Kunjungan",
+                    "jenis_pesan" => "Jenis Pesan",
+                    "minat" => "Minat",
+                    "prodi" => "Program Studi",
+                    "pesan" => "Pesan",
+                ];
+
+                foreach ($labelForm as $kunci => $label) {
+                    $nilaiForm = $formData[$kunci] ?? "";
+
+                    if ($kunci === "minat") {
+                        $nilaiForm = is_array($nilaiForm)
+                            ? implode(", ", array_map("strval", array_filter($nilaiForm, "is_scalar")))
+                            : "";
+                    }
+
+                    $nilaiForm = is_scalar($nilaiForm)
+                        ? bersihkan((string) $nilaiForm)
+                        : "";
+
+                    if ($kunci === "pesan") {
+                        $nilaiForm = nl2br($nilaiForm);
+                    }
+
+                    echo '<p><strong>' . bersihkan($label) . ':</strong> ' . $nilaiForm . '</p>';
+                }
+                ?>
             <?php endif; ?>
         </section>
     </main>
