@@ -2,6 +2,8 @@
 session_start();
 include "fungsi.php";
 
+$daftarKategori = ["Akademik", "Lomba", "Workshop", "Organisasi", "Pengabdian"];
+
 function normalizeFormText($value): string
 {
     return is_scalar($value) ? trim((string) $value) : '';
@@ -35,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pesanKesalahanKegiatan .= 'Nama kegiatan maksimal 100 karakter. ';
         }
 
-        if (!in_array($kategoriKegiatan, ['Akademik', 'Lomba', 'Workshop', 'Organisasi', 'Pengabdian'], true)) {
+        if (!in_array($kategoriKegiatan, $daftarKategori, true)) {
             $pesanKesalahanKegiatan .= 'Kategori kegiatan wajib dipilih. ';
         }
 
@@ -356,6 +358,11 @@ $nama = $formData["nama"] ?? "";
 
         <section id="rencana-kegiatan">
             <h2>Rencana Kegiatan Mahasiswa</h2>
+            <p>
+                Ada <?= count($daftarKategori) ?> kategori. Kategori pertama:
+                <?= bersihkan($daftarKategori[0]) ?>; kategori terakhir:
+                <?= bersihkan($daftarKategori[count($daftarKategori) - 1]) ?>.
+            </p>
 
             <?php if ($rencanaKegiatanError !== ''): ?>
                 <p class="form-feedback-error">
@@ -382,11 +389,12 @@ $nama = $formData["nama"] ?? "";
                     <select class="input-form" id="kategori_kegiatan"
                             name="kategori_kegiatan" required>
                         <option value="">-- Pilih Kategori --</option>
-                        <option value="Akademik" <?= (($rencanaKegiatanInput['kategori_kegiatan'] ?? '') === 'Akademik') ? 'selected' : '' ?>>Akademik</option>
-                        <option value="Lomba" <?= (($rencanaKegiatanInput['kategori_kegiatan'] ?? '') === 'Lomba') ? 'selected' : '' ?>>Lomba</option>
-                        <option value="Workshop" <?= (($rencanaKegiatanInput['kategori_kegiatan'] ?? '') === 'Workshop') ? 'selected' : '' ?>>Workshop</option>
-                        <option value="Organisasi" <?= (($rencanaKegiatanInput['kategori_kegiatan'] ?? '') === 'Organisasi') ? 'selected' : '' ?>>Organisasi</option>
-                        <option value="Pengabdian" <?= (($rencanaKegiatanInput['kategori_kegiatan'] ?? '') === 'Pengabdian') ? 'selected' : '' ?>>Pengabdian</option>
+                        <?php foreach ($daftarKategori as $kategori): ?>
+                            <option value="<?= bersihkan($kategori) ?>"
+                                <?= (($rencanaKegiatanInput['kategori_kegiatan'] ?? '') === $kategori) ? 'selected' : '' ?>>
+                                <?= bersihkan($kategori) ?>
+                            </option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
 
